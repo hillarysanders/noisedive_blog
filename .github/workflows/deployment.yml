@@ -1,32 +1,39 @@
 name: "Server Deployment"
-
 on:
-
   push:
-
       branches: [main]
 
 jobs:
-  deployment:
+  deploy:
     runs-on: ubuntu-latest
     steps:
 
-    - name: Say Hello!
+    - name: rsync deployment
     uses: actions/checkout@v2
-    run:
-      echo "Hello there!"
-      echo `whoami`
-      echo $GITHUB_WORKSPACE
-      echo `pwd`
-      echo `ls`
-
-    - name: Deploy code to server with rsync
+    uses: burnett01/rsync-deployments@5.2.1
     env:
       GITHUB_WORKSPACE: ${{ github.workspace }}  # Set the environment variable for github.workspace
       SSH_HOST: ${{ secrets.SSH_HOST }}
       SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
       SSH_KEY: ${{ secrets.SSH_KEY }}
+      SSH_PORT: 8000
+    with:
+        switches: -avzr --delete
+        path: /Users/hillary.sandersopendoor.com/noisedive-flask
+        remote_path: /home/noisedive-flask
+        remote_host: $SSH_HOST
+        remote_user: $SSH_USERNAME
+        remote_key: $SSH_KEY
+        report_port: $SSH_PORT
+    # run:
+    #   echo "Hello there!"
+    #   echo `whoami`
+    #   echo $GITHUB_WORKSPACE
+    #   echo `pwd`
+    #   echo `ls`
 
-    run:
-      mkdir -p noisedive-flask  # make server folder if it does not already exist
-      rsync -avzhr /Users/hillary.sandersopendoor.com/noisedive-flask ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/noisedive-flask/
+
+
+    # run:
+    #   mkdir -p noisedive-flask  # make server folder if it does not already exist
+    #   rsync -avzhr /Users/hillary.sandersopendoor.com/noisedive-flask ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/noisedive-flask/
