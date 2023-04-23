@@ -7,17 +7,11 @@ on:
       branches: [main]
 
 jobs:
-
   deployment:
-
     runs-on: ubuntu-latest
-
     steps:
-
-    - uses: actions/checkout@v2
-
     - name: Say Hello!
-
+    uses: actions/checkout@v2
     run:
       echo "Hello there!"
       echo `whoami`
