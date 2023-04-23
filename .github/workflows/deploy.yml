@@ -27,6 +27,7 @@ jobs:
           # Remove any existing files in the directory
           rm -rf *
 
+          echo $GITHUB_WORKSPACE
           # Create a tar.gz archive of the website files from the repository
           tar -czf site.tar.gz -C $GITHUB_WORKSPACE .
 
