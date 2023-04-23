@@ -17,6 +17,6 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         source: "index.html"
-        target: /home/public
+        target: /home/public/index.html
 
 
