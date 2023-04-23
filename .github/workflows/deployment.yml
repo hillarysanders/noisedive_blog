@@ -28,10 +28,10 @@ jobs:
           # switches: -avzr --delete
           path: src/index.html
           remote_path: /home/public
-          remote_host: ${{ secrets.SSH_HOST }}
-          remote_user: ${{ secrets.SSH_USERNAME }}
-          remote_key: ${{ secrets.SSH_KEY }}
-          remote_port: 8000
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 8000
       run: |
         echo -e "${{ secrets.SSH_KEY }}" >__TEMP_INPUT_KEY_FILE
         chmod 600 __TEMP_INPUT_KEY_FILE
