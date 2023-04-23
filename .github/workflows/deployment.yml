@@ -32,11 +32,12 @@ jobs:
             key: ${{ secrets.SSH_KEY }}
             port: 8000
         run: |
-          echo -e "${{ secrets.SSH_KEY }}" >__TEMP_INPUT_KEY_FILE
-          chmod 600 __TEMP_INPUT_KEY_FILE
+          echo -e "${{ secrets.SSH_KEY }}" >__TEMP
+          chmod 600 __TEMP
           echo "Hello there!"
           echo `whoami`
           echo $GITHUB_WORKSPACE
           echo `pwd`
           echo `ls`
-          echo hi && scp -o StrictHostKeyChecking=no -v -i __TEMP_INPUT_KEY_FILE $GITHUB_WORKSPACE/index.html ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/public/
+          scp -o StrictHostKeyChecking=no -v -i __TEMP $GITHUB_WORKSPACE/index.html ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/public/
+          echo Done
