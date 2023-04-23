@@ -18,8 +18,11 @@ jobs:
         echo `ls`
         echo `ls noisedive-flask`
 
-    - uses: actions/checkout@v2
-    - name: rsync deployments
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Upload to SSH Server
+      uses: appleboy/ssh-action@master
       # uses: burnett01/rsync-deployments@5.2.1
       env:
           # switches: -avzr --delete
