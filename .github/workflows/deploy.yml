@@ -24,13 +24,16 @@ jobs:
         script: |
           # Navigate to the directory where the website files will be deployed
           mkdir -p noisedive  # make server folder if it does not already exist
-          cd noisedive
+          # cd noisedive
 
           # Remove any existing files in the directory
           rm -rf *
 
-          whoami
+          echo `whoami`
           echo $GITHUB_WORKSPACE
+          echo `pwd`
+          echo `ls`
+
           # Create a tar.gz archive of the website files from the repository
           tar -czf site.tar.gz -C $GITHUB_WORKSPACE .
 
