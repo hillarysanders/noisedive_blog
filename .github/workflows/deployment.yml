@@ -17,7 +17,7 @@ jobs:
           remote_host: ${{ secrets.SSH_HOST }}
           remote_user: ${{ secrets.SSH_USERNAME }}
           remote_key: ${{ secrets.SSH_KEY }}
-          report_port: 8000
+          remote_port: 8000
     # run:
     #   echo "Hello there!"
     #   echo `whoami`
