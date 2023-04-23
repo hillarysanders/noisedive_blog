@@ -9,7 +9,7 @@ jobs:
     steps:
 
     - name: Make folder
-      run:
+      run: |
         mkdir -p noisedive-flask  # make server folder if it does not already exist
         echo "Hello there!"
         echo `whoami`
