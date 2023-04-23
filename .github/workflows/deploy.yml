@@ -1,47 +1,47 @@
-name: Deploy Website
+# name: Deploy Website
 
-on:
-  push:
-    branches:
-      - main  # Trigger deployment on push to the main branch
+# on:
+#   push:
+#     branches:
+#       - main  # Trigger deployment on push to the main branch
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
 
-    - name: Deploy to SSH Server
-      uses: appleboy/ssh-action@master
-      env:
-        GITHUB_WORKSPACE: ${{ github.workspace }}  # Set the environment variable for github.workspace
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        script: |
-          # Navigate to the directory where the website files will be deployed
-          mkdir -p noisedive  # make server folder if it does not already exist
-          # cd noisedive
+#     - name: Deploy to SSH Server
+#       uses: appleboy/ssh-action@master
+#       env:
+#         GITHUB_WORKSPACE: ${{ github.workspace }}  # Set the environment variable for github.workspace
+#       with:
+#         host: ${{ secrets.SSH_HOST }}
+#         username: ${{ secrets.SSH_USERNAME }}
+#         key: ${{ secrets.SSH_KEY }}
+#         script: |
+#           # Navigate to the directory where the website files will be deployed
+#           mkdir -p noisedive  # make server folder if it does not already exist
+#           # cd noisedive
 
-          # Remove any existing files in the directory
-          # rm -rf *
+#           # Remove any existing files in the directory
+#           # rm -rf *
 
-          echo `whoami`
-          echo $GITHUB_WORKSPACE
-          echo `pwd`
-          echo `ls`
+#           echo `whoami`
+#           echo $GITHUB_WORKSPACE
+#           echo `pwd`
+#           echo `ls`
 
-          # # Create a tar.gz archive of the website files from the repository
-          # tar -czf site.tar.gz -C $GITHUB_WORKSPACE .
+#           # # Create a tar.gz archive of the website files from the repository
+#           # tar -czf site.tar.gz -C $GITHUB_WORKSPACE .
 
-          # # # Extract the website files to the current directory
-          # # tar -xzf site.tar.gz
+#           # # # Extract the website files to the current directory
+#           # # tar -xzf site.tar.gz
 
-          # # # Remove the archive file
-          # # rm site.tar.gz
+#           # # # Remove the archive file
+#           # # rm site.tar.gz
 
-    - name: Notify Deployment Success
-      run: echo "Deployment to remote server completed successfully!"
+#     - name: Notify Deployment Success
+#       run: echo "Deployment to remote server completed successfully!"
