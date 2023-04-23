@@ -22,7 +22,7 @@ jobs:
       uses: burnett01/rsync-deployments@5.2.1
       with:
           switches: -avzr --delete
-          path: /Users/hillary.sandersopendoor.com/noisedive-flask
+          path: noisedive-flask
           remote_path: /home/noisedive-flask
           remote_host: ${{ secrets.SSH_HOST }}
           remote_user: ${{ secrets.SSH_USERNAME }}
