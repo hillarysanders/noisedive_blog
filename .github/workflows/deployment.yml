@@ -9,7 +9,9 @@ on:
 jobs:
   deployment:
     runs-on: ubuntu-latest
+    environment: production
     steps:
+
     - name: Say Hello!
     uses: actions/checkout@v2
     run:
@@ -18,3 +20,14 @@ jobs:
       echo $GITHUB_WORKSPACE
       echo `pwd`
       echo `ls`
+
+    - name: Deploy code to server with rsync
+    env:
+      GITHUB_WORKSPACE: ${{ github.workspace }}  # Set the environment variable for github.workspace
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+      SSH_KEY: ${{ secrets.SSH_KEY }}
+
+    run:
+      mkdir -p noisedive-flask  # make server folder if it does not already exist
+      rsync -avzhr /Users/hillary.sandersopendoor.com/noisedive-flask ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/noisedive-flask/
