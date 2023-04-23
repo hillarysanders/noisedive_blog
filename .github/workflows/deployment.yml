@@ -37,4 +37,4 @@ jobs:
         echo $GITHUB_WORKSPACE
         echo `pwd`
         echo `ls`
-        scp -o StrictHostKeyChecking=no -v -i __TEMP_INPUT_KEY_FILE $GITHUB_WORKSPACE/index.html ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/public/
+        echo hi && scp -o StrictHostKeyChecking=no -v -i __TEMP_INPUT_KEY_FILE $GITHUB_WORKSPACE/index.html ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/public/
