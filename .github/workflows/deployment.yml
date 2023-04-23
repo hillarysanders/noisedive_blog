@@ -29,8 +29,11 @@ jobs:
           remote_key: ${{ secrets.SSH_KEY }}
           remote_port: 8000
       run: |
-      
-        scp index.html ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/public/
+        echo -e "${{ secrets.SSH_KEY }}" >__TEMP_INPUT_KEY_FILE
+        chmod 600 __TEMP_INPUT_KEY_FILE
+        scp -o StrictHostKeyChecking=no -v -i __TEMP_INPUT_KEY_FILE -P "8000" -r index.html ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/public/
+
+        # scp -o StrictHostKeyChecking=no index.html ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/public/
 
 
     # env:
