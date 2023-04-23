@@ -18,13 +18,13 @@ jobs:
           remote_user: ${{ secrets.SSH_USERNAME }}
           remote_key: ${{ secrets.SSH_KEY }}
           remote_port: 8000
-      run:
-        mkdir -p noisedive-flask  # make server folder if it does not already exist
-        echo "Hello there!"
-        echo `whoami`
-        echo $GITHUB_WORKSPACE
-        echo `pwd`
-        echo `ls`
+      # run:
+      #   mkdir -p noisedive-flask  # make server folder if it does not already exist
+      #   echo "Hello there!"
+      #   echo `whoami`
+      #   echo $GITHUB_WORKSPACE
+      #   echo `pwd`
+      #   echo `ls`
 
 
     # env:
