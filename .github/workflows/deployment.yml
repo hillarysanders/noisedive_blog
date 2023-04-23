@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: rsync deployment
-    uses: actions/checkout@v2
-    uses: burnett01/rsync-deployments@5.2.1
+    - uses: actions/checkout@v2
+    - name: rsync deployments
+      uses: burnett01/rsync-deployments@5.2.1
     env:
       GITHUB_WORKSPACE: ${{ github.workspace }}  # Set the environment variable for github.workspace
       SSH_HOST: ${{ secrets.SSH_HOST }}
