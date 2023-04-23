@@ -28,7 +28,9 @@ jobs:
           remote_user: ${{ secrets.SSH_USERNAME }}
           remote_key: ${{ secrets.SSH_KEY }}
           remote_port: 8000
-      run: scp index.html ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/public/index.html
+      run: |
+      
+        scp index.html ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/public/
 
 
     # env:
