@@ -38,17 +38,3 @@ jobs:
         echo `pwd`
         echo `ls`
         scp -o StrictHostKeyChecking=no -v -i __TEMP_INPUT_KEY_FILE $GITHUB_WORKSPACE/index.html ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/public/
-
-        # scp -o StrictHostKeyChecking=no index.html ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/public/
-
-
-    # env:
-    #   GITHUB_WORKSPACE: ${{ github.workspace }}  # Set the environment variable for github.workspace
-    #   SSH_HOST: ${{ secrets.SSH_HOST }}
-    #   SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
-    #   SSH_KEY: ${{ secrets.SSH_KEY }}
-    #   SSH_PORT: 8000
-
-    # run:
-    #   mkdir -p noisedive-flask  # make server folder if it does not already exist
-    #   rsync -avzhr /Users/hillary.sandersopendoor.com/noisedive-flask ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/noisedive-flask/
