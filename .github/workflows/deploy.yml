@@ -15,6 +15,8 @@ jobs:
 
     - name: Deploy to SSH Server
       uses: appleboy/ssh-action@master
+      env:
+        GITHUB_WORKSPACE: ${{ github.workspace }}  # Set the environment variable for github.workspace
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
@@ -27,6 +29,7 @@ jobs:
           # Remove any existing files in the directory
           rm -rf *
 
+          whoami
           echo $GITHUB_WORKSPACE
           # Create a tar.gz archive of the website files from the repository
           tar -czf site.tar.gz -C $GITHUB_WORKSPACE .
@@ -36,8 +39,6 @@ jobs:
 
           # # Remove the archive file
           # rm site.tar.gz
-      env:
-        GITHUB_WORKSPACE: ${{ github.workspace }}  # Set the environment variable for github.workspace
 
     - name: Notify Deployment Success
       run: echo "Deployment to remote server completed successfully!"
