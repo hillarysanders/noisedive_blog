@@ -16,6 +16,7 @@ jobs:
         echo $GITHUB_WORKSPACE
         echo `pwd`
         echo `ls`
+        echo `ls noisedive-flask`
 
     - uses: actions/checkout@v2
     - name: rsync deployments
