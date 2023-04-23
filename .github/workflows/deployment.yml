@@ -7,7 +7,18 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+
+    - name: Make folder
+      run:
+        mkdir -p noisedive-flask  # make server folder if it does not already exist
+        echo "Hello there!"
+        echo `whoami`
+        echo $GITHUB_WORKSPACE
+        echo `pwd`
+        echo `ls`
+
     - uses: actions/checkout@v2
+    
     - name: rsync deployments
       uses: burnett01/rsync-deployments@5.2.1
       with:
