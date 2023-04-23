@@ -27,7 +27,7 @@ jobs:
           # cd noisedive
 
           # Remove any existing files in the directory
-          rm -rf *
+          # rm -rf *
 
           echo `whoami`
           echo $GITHUB_WORKSPACE
