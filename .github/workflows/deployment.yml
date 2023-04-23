@@ -18,8 +18,8 @@ jobs:
         echo `ls`
         echo `ls noisedive-flask`
 
-    - name: Checkout code
-      uses: actions/checkout@v2
+    # - name: Checkout code
+    #   uses: actions/checkout@v2
 
     - name: Upload to SSH Server
       uses: appleboy/ssh-action@master
