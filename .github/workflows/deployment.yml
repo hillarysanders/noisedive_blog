@@ -3,9 +3,23 @@ on:
   push:
     branches: [main]
 jobs:
+  delete:
+    runs-on: ubuntu-latest
 
-  build:
-    name: Build
+    steps:
+    - name: Delete files in ssh server
+      uses: appleboy/ssh-action@master
+      env:
+        GITHUB_WORKSPACE: ${{ github.workspace }}  # Set the environment variable for github.workspace
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        # Recursively delete:
+        script: rm -rfd /home/public/ && mkdir /home/public/
+
+  upload:
+    name: upload
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -40,6 +54,7 @@ jobs:
 
 # ### potentially on new machine or different directory, using the version (here 1.1 listed in setup.py)
 # python3.10 -m venv wheel_venv
+# source wheel_venv/bin/activate
 # pip install dist/noisedive_flask-1.1-py3-none-any.whl --force-reinstall
 
 # ## WSGI server:
