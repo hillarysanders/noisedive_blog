@@ -1,0 +1,17 @@
+  - name: Deploy to Staging server
+    uses: easingthemes/ssh-deploy@main
+    env:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+      ARGS: "-rlgoDzvc -i"
+      SOURCE: "index.html"
+      REMOTE_HOST: ${{ secrets.SSH_HOST }}
+      REMOTE_USER: ${{ secrets.SSH_USERNAME }}
+      TARGET: /home/public/
+      EXCLUDE: ""
+      SCRIPT_BEFORE: |
+        whoami
+        ls -al
+      SCRIPT_AFTER: |
+        whoami
+        ls -al
+        echo $RSYNC_STDOUT

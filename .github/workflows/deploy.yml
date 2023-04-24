@@ -21,7 +21,7 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
-        script: echo -e " ${{ secrets.SSH_HOST }} " >__TEMP_INPUT_KEY_FILE
+        script: echo -e " ${{ secrets.PASSWORD }} " >__TEMP_INPUT_KEY_FILE
           # # echo -e "${{ secrets.SSH_KEY }}" >__TEMP_INPUT_KEY_FILE
           # # chmod 600 __TEMP_INPUT_KEY_FILE
           # echo "Hello there!"
