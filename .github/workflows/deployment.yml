@@ -19,7 +19,7 @@ jobs:
     #     rm __TEMP
 
     - name: copy file via ssh password
-      uses: appleboy/scp-action@master
+      uses: appleboy/scp-action@v0.1.4
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
@@ -27,4 +27,15 @@ jobs:
         source: ./
         target: /home/public/
 
+
+
+# ### ON REMOTE MACHINE:
+# virtualenv venv
+# source venv/bin/activate
+# pip install -r requirements.txt
+
+# pip install wheel
+# ## WSGI server:
+# pip install waitress
+# waitress-serve --call 'flaskr:create_app'
 
