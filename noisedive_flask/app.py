@@ -37,9 +37,11 @@ usersTable()
 postsTable()
 commentsTable()
 
-app = Flask(__name__)
-app.secret_key = secrets.token_urlsafe(32)
-app.config["SESSION_PERMANENT"] = True
+def create_app():
+    app = Flask(__name__)
+    app.secret_key = secrets.token_urlsafe(32)
+    app.config["SESSION_PERMANENT"] = True
+    return app
 
 
 @app.context_processor
@@ -79,4 +81,5 @@ app.register_blueprint(adminPanelCommentsBlueprint)
 
 match __name__:
     case "__main__":
+        app = create_app()
         app.run(debug=True, host=socket.gethostbyname(socket.gethostname()))
