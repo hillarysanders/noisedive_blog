@@ -16,7 +16,7 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         # Recursively delete:
-        script: rm -rfd /home/public/ && mkdir /home/public/
+        script: rm -rfd /home/public/*
 
   upload:
     name: upload
