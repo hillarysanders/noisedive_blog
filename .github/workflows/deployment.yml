@@ -29,16 +29,20 @@ jobs:
 
 
 
+# TODO: LOL, okay the flask code is all python 3.10, and nearlyfreespeech server is python 3.9. Not sure how to change.
+# So maybe just create your own flask app, or port back. But the scp upload is working!!!
+# And eventually I think all you do is:
 # ### ON REMOTE MACHINE:
-# virtualenv venv
+# python3.10 -m venv venv
 # source venv/bin/activate
 # pip install -r requirements.txt
 
 # pip install wheel
 # python setup.py bdist_wheel
+# ### potentially on new machine or different directory:
 # pip install dist/noisedive_flask-1.0-py3-none-any.whl
 
 # ## WSGI server:
-# venv/bin/pip-3.9 install waitress
-# venv/bin/waitress-serve --call 'noisedive-flask:create_app'
+# pip install waitress
+# venv/bin/waitress-serve --call 'noisedive_flask:create_app'
 

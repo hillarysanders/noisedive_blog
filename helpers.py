@@ -31,10 +31,9 @@ def currentDate():
 
 
 def currentTime(seconds=False):
-    match seconds:
-        case False:
+    if seconds is False:
             return datetime.now().strftime("%H:%M")
-        case True:
+    if seconds is True:
             return datetime.now().strftime("%H:%M:%S")
 
 
