@@ -1,4 +1,4 @@
-name: ssh_deploy
+name: ssh_deploy via scp
 on: 
   push:
     branches: [main]
