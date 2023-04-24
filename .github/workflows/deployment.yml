@@ -28,9 +28,7 @@ jobs:
         target: /home/public/
 
 
-
-# TODO: LOL, okay the flask code is all python 3.10, and nearlyfreespeech server is python 3.9. Not sure how to change.
-# So maybe just create your own flask app, or port back. But the scp upload is working!!!
+# TODO: I think the git repo needs to be named noisedive_flask instead of noisedive-flask... Did that. Redo all?
 # And eventually I think all you do is:
 # ### ON REMOTE MACHINE:
 # python3.10 -m venv venv
@@ -40,7 +38,7 @@ jobs:
 # pip install wheel
 # python setup.py bdist_wheel
 # ### potentially on new machine or different directory:
-# pip install dist/noisedive_flask-1.0-py3-none-any.whl
+# pip install dist/noisedive_flask-1.0-py3-none-any.whl --force-reinstall
 
 # ## WSGI server:
 # pip install waitress
