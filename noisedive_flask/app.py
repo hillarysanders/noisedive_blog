@@ -1,6 +1,7 @@
 import sys
 import os
 sys.path.append(os.getcwd())
+sys.path.append('/home/public/noisedive_flask')
 
 import socket
 from helpers import (

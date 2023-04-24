@@ -63,3 +63,12 @@ jobs:
 # pip install waitress
 # wheel_venv/bin/waitress-serve --call 'noisedive_flask:create_app'
 
+
+
+# ### EACH TIME:
+# source venv/bin/activate
+# python setup.py bdist_wheel
+# source wheel_venv/bin/activate
+# pip install dist/noisedive_flask-1.1.2-py3-none-any.whl
+# wheel_venv/bin/waitress-serve --call 'noisedive_flask:create_app'
+

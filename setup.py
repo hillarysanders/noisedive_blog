@@ -5,7 +5,7 @@ setup(
     #this will be the package name you will see, e.g. the output of 'conda list' in anaconda prompt
     name = 'noisedive_flask', 
     #some version number you may wish to add - increment this after every update
-    version='1.1.2', 
+    version='1.1.3', 
   
     # Use one of the below approach to define package and/or module names:
   
