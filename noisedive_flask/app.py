@@ -41,45 +41,44 @@ def create_app():
     app = Flask(__name__)
     app.secret_key = secrets.token_urlsafe(32)
     app.config["SESSION_PERMANENT"] = True
+
+    @app.context_processor
+    def utility_processor():
+        getProfilePicture
+        return dict(getProfilePicture=getProfilePicture)
+
+
+    @app.errorhandler(404)
+    def notFound(e):
+        message("1", "404")
+        return render_template("404.html"), 404
+
+    app.register_blueprint(postBlueprint)
+    app.register_blueprint(userBlueprint)
+    app.register_blueprint(indexBlueprint)
+    app.register_blueprint(loginBlueprint)
+    app.register_blueprint(signUpBlueprint)
+    app.register_blueprint(logoutBlueprint)
+    app.register_blueprint(searchBlueprint)
+    app.register_blueprint(editPostBlueprint)
+    app.register_blueprint(dashboardBlueprint)
+    app.register_blueprint(searchBarBlueprint)
+    app.register_blueprint(adminPanelBlueprint)
+    app.register_blueprint(deleteUserBlueprint)
+    app.register_blueprint(deletePostBlueprint)
+    app.register_blueprint(createPostBlueprint)
+    app.register_blueprint(setUserRoleBlueprint)
+    app.register_blueprint(deleteCommentBlueprint)
+    app.register_blueprint(changeUserNameBlueprint)
+    app.register_blueprint(changePasswordBlueprint)
+    app.register_blueprint(adminPanelUsersBlueprint)
+    app.register_blueprint(adminPanelPostsBlueprint)
+    app.register_blueprint(accountSettingsBlueprint)
+    app.register_blueprint(adminPanelCommentsBlueprint)
+
     return app
-
-
-@app.context_processor
-def utility_processor():
-    getProfilePicture
-    return dict(getProfilePicture=getProfilePicture)
-
-
-@app.errorhandler(404)
-def notFound(e):
-    message("1", "404")
-    return render_template("404.html"), 404
-
-
-app.register_blueprint(postBlueprint)
-app.register_blueprint(userBlueprint)
-app.register_blueprint(indexBlueprint)
-app.register_blueprint(loginBlueprint)
-app.register_blueprint(signUpBlueprint)
-app.register_blueprint(logoutBlueprint)
-app.register_blueprint(searchBlueprint)
-app.register_blueprint(editPostBlueprint)
-app.register_blueprint(dashboardBlueprint)
-app.register_blueprint(searchBarBlueprint)
-app.register_blueprint(adminPanelBlueprint)
-app.register_blueprint(deleteUserBlueprint)
-app.register_blueprint(deletePostBlueprint)
-app.register_blueprint(createPostBlueprint)
-app.register_blueprint(setUserRoleBlueprint)
-app.register_blueprint(deleteCommentBlueprint)
-app.register_blueprint(changeUserNameBlueprint)
-app.register_blueprint(changePasswordBlueprint)
-app.register_blueprint(adminPanelUsersBlueprint)
-app.register_blueprint(adminPanelPostsBlueprint)
-app.register_blueprint(accountSettingsBlueprint)
-app.register_blueprint(adminPanelCommentsBlueprint)
 
 match __name__:
     case "__main__":
         app = create_app()
-        app.run(debug=True, host=socket.gethostbyname(socket.gethostname()))
+        app.run(debug=False, host=socket.gethostbyname(socket.gethostname()))
