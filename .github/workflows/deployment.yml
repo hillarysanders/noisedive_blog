@@ -37,8 +37,10 @@ jobs:
 
 # pip install wheel
 # python setup.py bdist_wheel
-# ### potentially on new machine or different directory:
-# pip install dist/noisedive_flask-1.0-py3-none-any.whl --force-reinstall
+
+# ### potentially on new machine or different directory, using the version (here 1.1 listed in setup.py)
+# python3.10 -m venv wheel_venv
+# pip install dist/noisedive_flask-1.1-py3-none-any.whl --force-reinstall
 
 # ## WSGI server:
 # pip install waitress
