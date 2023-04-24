@@ -8,7 +8,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
 
 
     # # Runs a set of commands using the runners shell
@@ -23,7 +23,7 @@ jobs:
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
-        # password: ${{ secrets.PASSWORD }}
+        password: ${{ secrets.PASSWORD }}
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.PORT }}
         source: index.html
