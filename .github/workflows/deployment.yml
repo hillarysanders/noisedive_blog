@@ -53,6 +53,7 @@ jobs:
 # pip install wheel
 # python setup.py bdist_wheel
 
+# ### NOTE: updates seem to not go through unless version is increased??
 # ### potentially on new machine or different directory, using the version (here 1.1 listed in setup.py)
 # python3.10 -m venv wheel_venv
 # source wheel_venv/bin/activate

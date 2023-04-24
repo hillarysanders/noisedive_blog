@@ -1,3 +1,5 @@
+import sys
+import os
 import socket
 
 from helpers import (
@@ -32,12 +34,15 @@ from routes.accountSettings import accountSettingsBlueprint
 from routes.adminPanelComments import adminPanelCommentsBlueprint
 from dbChecker import dbFolder, usersTable, postsTable, commentsTable
 
-dbFolder()
-usersTable()
-postsTable()
-commentsTable()
+sys.path.append(os.getcwd())
 
 def create_app():
+
+    dbFolder()
+    usersTable()
+    postsTable()
+    commentsTable()
+
     app = Flask(__name__)
     app.secret_key = secrets.token_urlsafe(32)
     app.config["SESSION_PERMANENT"] = True
