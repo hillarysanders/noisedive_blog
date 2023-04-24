@@ -1,7 +1,8 @@
 import sys
 import os
-import socket
+sys.path.append(os.getcwd())
 
+import socket
 from helpers import (
     secrets,
     message,
@@ -34,7 +35,6 @@ from routes.accountSettings import accountSettingsBlueprint
 from routes.adminPanelComments import adminPanelCommentsBlueprint
 from dbChecker import dbFolder, usersTable, postsTable, commentsTable
 
-sys.path.append(os.getcwd())
 
 def create_app():
 
