@@ -35,7 +35,10 @@ jobs:
 # pip install -r requirements.txt
 
 # pip install wheel
+# python setup.py bdist_wheel
+# pip install dist/noisedive_flask-1.0-py3-none-any.whl
+
 # ## WSGI server:
-# pip install waitress
-# waitress-serve --call 'flaskr:create_app'
+# venv/bin/pip-3.9 install waitress
+# venv/bin/waitress-serve --call 'noisedive-flask:create_app'
 
