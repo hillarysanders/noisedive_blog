@@ -14,7 +14,9 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Run a multi-line script
       run: |
-        scp index.html ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/public/noisedive/index.html
+        echo -e " ${{ secrets.SSH_KEY }} " >__TEMP
+        scp -v -i __TEMP index.html ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/public/noisedive/index.html
+        rm __TEMP
 
     - name: copy file via ssh password
       uses: appleboy/scp-action@master
