@@ -10,7 +10,7 @@ setup(
     #this will be the package name you will see, e.g. the output of 'conda list' in anaconda prompt
     name = 'noisedive_flask', 
     #some version number you may wish to add - increment this after every update
-    version='1.1.8', 
+    version='1.1.9', 
     include_package_data=True,
 
     install_requires=requirements,
@@ -20,8 +20,8 @@ setup(
 )
 # ### EACH TIME:
 # source venv/bin/activate
-# python3.10 setup.py bdist_wheel
-# pip install dist/noisedive_flask-1.1.7-py3-none-any.whl
+# python setup.py bdist_wheel
+# pip install dist/noisedive_flask-1.1.8-py3-none-any.whl
 # venv/bin/waitress-serve --call 'noisedive_flask:create_app'
 
 #### NOTES: works great locally. Seems to run remotely, but I can't find it online. Might need to use nginx or something, or it's something else.
@@ -62,5 +62,6 @@ setup(
 # kicked it off in nearlyfreespeech
 # logs of daemon are in: /home/logs/daemon_noisedive.log
 # changed setup.py to have include_package_data=True so non-py files are included in package.
+# and then added a MANIFEST.in file to specify what to include.
 
 # exec venv/bin/waitress-serve --call 'noisedive_flask:create_app'
