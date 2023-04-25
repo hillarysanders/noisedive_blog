@@ -17,7 +17,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         # Recursively delete everything except venv and folder itself, for now (rsync better probs, but meh).
         # TODO: this deletes the DBs each time, remove them from git, probably, and add init steps to setup steps.
-        script: find /home/public -maxdepth 1 -mindepth 1 -not -name /home/public/venv -not -name /home/public/wheel_venv -delete
+        script: find /home/protected/noisedive -maxdepth 1 -mindepth 1 -not -name /home/protected/noisedivevenv -not -name /home/protected/noisedive/wheel_venv -delete
   upload:
     name: upload
     runs-on: ubuntu-latest
@@ -39,7 +39,7 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         source: ./
-        target: /home/public/
+        target: /home/protected/noisedive
 
 
 # TODO: I think the git repo needs to be named noisedive_flask instead of noisedive-flask... Did that. Redo all?
@@ -55,20 +55,36 @@ jobs:
 
 # ### NOTE: updates seem to not go through unless version is increased??
 # ### potentially on new machine or different directory, using the version (here 1.1 listed in setup.py)
-# python3.10 -m venv wheel_venv
-# source wheel_venv/bin/activate
+# ### (not needed I think) python3.10 -m venv wheel_venv
+# ### (not needed I think) source wheel_venv/bin/activate
 # pip install dist/noisedive_flask-1.1-py3-none-any.whl --force-reinstall
 
 # ## WSGI server:
 # pip install waitress
-# wheel_venv/bin/waitress-serve --call 'noisedive_flask:create_app'
+# venv/bin/waitress-serve --call 'noisedive_flask:create_app'
 
 
 
 # ### EACH TIME:
 # source venv/bin/activate
 # python setup.py bdist_wheel
-# source wheel_venv/bin/activate
-# pip install dist/noisedive_flask-1.1.2-py3-none-any.whl
-# wheel_venv/bin/waitress-serve --call 'noisedive_flask:create_app'
+# ### (not needed I think) source wheel_venv/bin/activate
+# pip install dist/noisedive_flask-1.1.3-py3-none-any.whl
+# venv/bin/waitress-serve --call 'noisedive_flask:create_app'
 
+#### NOTES: works great locally. Seems to run remotely, but I can't find it online. Might need to use nginx or something, or it's something else.
+
+
+
+######
+# added sh file:
+# # touch /home/protected/run-noisedive.sh
+# #!/bin/sh
+# # then:
+# chmod a+x run-noisedive.sh
+# # you can test with:
+# cd noisedive
+# ../run-noisedive.sh
+
+
+# exec venv/bin/waitress-serve --call 'noisedive_flask:create_app'
