@@ -21,7 +21,7 @@ setup(
 # ### EACH TIME:
 # source venv/bin/activate
 # python setup.py bdist_wheel
-# pip install dist/noisedive_flask-1.1.6-py3-none-any.whl
+# pip install dist/noisedive_flask-1.1.7-py3-none-any.whl
 # venv/bin/waitress-serve --call 'noisedive_flask:create_app'
 
 #### NOTES: works great locally. Seems to run remotely, but I can't find it online. Might need to use nginx or something, or it's something else.
