@@ -17,7 +17,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         # Recursively delete everything except venv and folder itself, for now (rsync better probs, but meh).
         # TODO: this deletes the DBs each time, remove them from git, probably, and add init steps to setup steps.
-        script: find /home/protected/noisedive -maxdepth 1 -mindepth 1 -not -name /home/protected/noisedivevenv -not -name /home/protected/noisedive/wheel_venv -delete
+        script: find /home/protected/noisedive -maxdepth 1 -mindepth 1 -not -name /home/protected/noisedive/venv -not -name /home/protected/noisedive/wheel_venv -delete
   upload:
     name: upload
     runs-on: ubuntu-latest
@@ -42,4 +42,3 @@ jobs:
         target: /home/protected/noisedive
 
 
-        

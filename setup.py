@@ -10,7 +10,7 @@ setup(
     #this will be the package name you will see, e.g. the output of 'conda list' in anaconda prompt
     name = 'noisedive_flask', 
     #some version number you may wish to add - increment this after every update
-    version='1.1.7', 
+    version='1.1.8', 
     include_package_data=True,
 
     install_requires=requirements,
@@ -20,7 +20,7 @@ setup(
 )
 # ### EACH TIME:
 # source venv/bin/activate
-# python setup.py bdist_wheel
+# python3.10 setup.py bdist_wheel
 # pip install dist/noisedive_flask-1.1.7-py3-none-any.whl
 # venv/bin/waitress-serve --call 'noisedive_flask:create_app'
 
@@ -32,7 +32,7 @@ setup(
 # python3.10 -m venv venv
 # source venv/bin/activate
 # pip install --upgrade pip
-# # pip install -r requirements.txt
+# pip install -r requirements.txt
 
 # python setup.py bdist_wheel
 
