@@ -57,7 +57,7 @@ jobs:
 # ### potentially on new machine or different directory, using the version (here 1.1 listed in setup.py)
 # ### (not needed I think) python3.10 -m venv wheel_venv
 # ### (not needed I think) source wheel_venv/bin/activate
-# pip install dist/noisedive_flask-1.1-py3-none-any.whl --force-reinstall
+# pip install dist/noisedive_flask-1.1.4-py3-none-any.whl --force-reinstall
 
 # ## WSGI server:
 # pip install waitress
@@ -86,5 +86,10 @@ jobs:
 # cd noisedive
 # ../run-noisedive.sh
 
+# changed proxy port to flask default 5000
+# changed server type to fancy daemon friendly one and plan to production site
+# made sure protected virtualenv includes all the packages and the new wheel (TODO create automatically)
+# wrote daemon to run /home/protected/noisedive/venv/bin/waitress-serve --call 'noisedive_flask:create_app'
+# kicked it off in nearlyfreespeech
 
 # exec venv/bin/waitress-serve --call 'noisedive_flask:create_app'

@@ -2,3 +2,5 @@ Flask==2.2.2
 passlib==1.7.4
 WTForms==3.0.1
 flaskwebgui==1.0.3
+waitress==2.1.2
+wheel=0.40.0
