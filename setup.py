@@ -12,12 +12,27 @@ setup(
     #some version number you may wish to add - increment this after every update
     version='1.1.9', 
     include_package_data=True,
-
+    # package_data=? (MANIFEST.in)
     install_requires=requirements,
 
     #this approach automatically finds out all directories (packages) - those must contain a file named __init__.py (can be empty)
     packages=find_packages(), #include/exclude arguments take * as wildcard, . for any sub-package names
 )
+
+# TODO: 
+# TODO: 
+# TODO: 
+# TODO: 
+# TODO: NEXT UP:
+# 1) make it so the databases aren't cleared each time (no github)
+# 2) document just-once and every-time steps in README or google doc!
+# TODO: 
+# TODO: 
+# TODO: 
+# TODO: 
+# TODO: 
+# TODO: 
+
 # ### EACH TIME:
 # source venv/bin/activate
 # python setup.py bdist_wheel
@@ -38,7 +53,7 @@ setup(
 
 # ### NOTE: updates seem to not go through unless version is increased??
 # ### potentially on new machine or different directory, using the version (here 1.1 listed in setup.py)
-# pip install dist/noisedive_flask-1.1.5-py3-none-any.whl --force-reinstall
+# pip install dist/noisedive_flask-1.1.9-py3-none-any.whl --force-reinstall
 
 # ## WSGI server:
 # pip install waitress
