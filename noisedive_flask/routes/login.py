@@ -10,6 +10,7 @@ from helpers import (
     Blueprint,
     loginForm,
     sha256_crypt,
+    get_sqlite_cursor_and_connection,
 )
 
 loginBlueprint = Blueprint("login", __name__)
@@ -28,8 +29,7 @@ def login(direct):
                 userName = request.form["userName"]
                 password = request.form["password"]
                 userName = userName.replace(" ", "")
-                connection = sqlite3.connect("db/users.db")
-                cursor = connection.cursor()
+                cursor, connection = get_sqlite_cursor_and_connection('users.db')
                 cursor.execute(
                     f'select * from users where lower(userName) = "{userName.lower()}"'
                 )
