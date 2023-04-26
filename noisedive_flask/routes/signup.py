@@ -4,6 +4,7 @@ from helpers import (
     sqlite3,
     request,
     flash,
+    get_sqlite_cursor_and_connection,
     message,
     redirect,
     currentDate,
@@ -12,6 +13,7 @@ from helpers import (
     Blueprint,
     signUpForm,
     sha256_crypt,
+    
 )
 
 signUpBlueprint = Blueprint("signup", __name__)
@@ -31,8 +33,7 @@ def signup():
                 password = request.form["password"]
                 passwordConfirm = request.form["passwordConfirm"]
                 userName = userName.replace(" ", "")
-                connection = sqlite3.connect("db/users.db")
-                cursor = connection.cursor()
+                cursor, connection = get_sqlite_cursor_and_connection('users.db')
                 cursor.execute("select userName from users")
                 users = str(cursor.fetchall())
                 cursor.execute("select email from users")
@@ -42,8 +43,8 @@ def signup():
                         match userName.isascii():
                             case True:
                                 password = sha256_crypt.hash(password)
-                                connection = sqlite3.connect("db/users.db")
-                                cursor = connection.cursor()
+                                # connection = sqlite3.connect("db/users.db")
+                                # cursor = connection.cursor()
                                 cursor.execute(
                                     f"""
                                     insert into users(userName,email,password,profilePicture,role,points,creationDate,creationTime) 

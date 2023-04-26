@@ -2,6 +2,7 @@ from helpers import (
     sqlite3,
     render_template,
     Blueprint,
+    get_sqlite_cursor
 )
 
 searchBlueprint = Blueprint("search", __name__)
@@ -11,8 +12,7 @@ searchBlueprint = Blueprint("search", __name__)
 def search(query):
     queryNoWhiteSpace = query.replace("+", "")
     query = query.replace("+", " ")
-    connection = sqlite3.connect("db/users.db")
-    cursor = connection.cursor()
+    cursor = get_sqlite_cursor('users.db')
     queryUsers = cursor.execute(
         f"select * from users where userName like '%{query}%'"
     ).fetchall()

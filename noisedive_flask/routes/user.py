@@ -3,6 +3,7 @@ from helpers import (
     message,
     render_template,
     Blueprint,
+    get_sqlite_cursor
 )
 
 userBlueprint = Blueprint("user", __name__)
@@ -10,8 +11,7 @@ userBlueprint = Blueprint("user", __name__)
 
 @userBlueprint.route("/user/<userName>")
 def user(userName):
-    connection = sqlite3.connect("db/users.db")
-    cursor = connection.cursor()
+    cursor = get_sqlite_cursor('users.db')
     cursor.execute(f"select userName from users")
     users = cursor.fetchall()
     match str(userName).lower() in str(users).lower():

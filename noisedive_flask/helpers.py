@@ -24,7 +24,22 @@ from flask import (
     Flask,
     Blueprint,
 )
+basedir = os.path.abspath(os.path.dirname(__file__))
 
+def get_sqlite_cursor_and_connection(table_name):
+    # if table_name not in ['users', 'posts', 'comments']:
+    #      # some warning
+     # Construct the absolute paths to the database files
+    if not table_name.endswith('.db'):
+         table_name = f'{table_name}.db'
+    db_path = os.path.join(basedir, 'db', table_name)
+    connection = sqlite3.connect(db_path)
+    cursor = connection.cursor()
+    return cursor, connection
+    
+def get_sqlite_cursor(table_name):
+    cursor, _ = get_sqlite_cursor_and_connection(table_name)
+    return cursor
 
 def currentDate():
     return datetime.now().strftime("%d.%m.%y")
@@ -49,8 +64,7 @@ def message(color, message):
 
 
 def addPoints(points, user):
-    connection = sqlite3.connect("db/users.db")
-    cursor = connection.cursor()
+    cursor, connection = get_sqlite_cursor_and_connection('users.db')
     cursor.execute(
         f'update users set points = points+{points} where userName = "{user}"'
     )
@@ -59,8 +73,7 @@ def addPoints(points, user):
 
 
 def getProfilePicture(userName):
-    connection = sqlite3.connect("db/users.db")
-    cursor = connection.cursor()
+    cursor = get_sqlite_cursor('users.db')
     cursor.execute(
         f'select profilePicture from users where lower(userName) = "{userName.lower()}"'
     )

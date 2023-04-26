@@ -1,4 +1,4 @@
-from helpers import mkdir, exists, message, sqlite3
+from helpers import mkdir, exists, message, sqlite3, get_sqlite_cursor_and_connection
 
 
 def dbFolder():
@@ -19,8 +19,7 @@ def usersTable():
             message("1", 'DATABASE: "users.db" NOT FOUND')
             open("db/users.db", "x")
             message("2", 'DATABASE: "users.db" CREATED')
-    connection = sqlite3.connect("db/users.db")
-    cursor = connection.cursor()
+    cursor, connection = get_sqlite_cursor_and_connection('users.db')
     try:
         cursor.execute("""SELECT * FROM users; """).fetchall()
         message("6", 'TABLE: "Users" FOUND')

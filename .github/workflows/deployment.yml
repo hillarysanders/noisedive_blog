@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      
+
     - name: Delete files in ssh server
       uses: appleboy/ssh-action@master
       env:
@@ -22,7 +22,7 @@ jobs:
 
     - uses: actions/checkout@v2
 
-    - name: copy file via ssh password
+    - name: copy file via ssh
       uses: appleboy/scp-action@v0.1.4
       with:
         host: ${{ secrets.SSH_HOST }}
