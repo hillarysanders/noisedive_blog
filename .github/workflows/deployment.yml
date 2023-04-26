@@ -23,15 +23,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-
-
-    # # Runs a set of commands using the runners shell
-    # - name: Run a multi-line script
-    #   run: |
-    #     echo -e " ${{ secrets.SSH_KEY }} " >__TEMP
-    #     scp -v -i __TEMP index.html ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/public/noisedive/index.html
-    #     rm __TEMP
-
     - name: copy file via ssh password
       uses: appleboy/scp-action@v0.1.4
       with:
@@ -42,9 +33,9 @@ jobs:
         target: /home/protected/noisedive
 
   install:
-    name: install
     runs-on: ubuntu-latest
     steps:
+    - name: build and install latest package version
       uses: appleboy/ssh-action@master
       env:
         GITHUB_WORKSPACE: ${{ github.workspace }}  # Set the environment variable for github.workspace
