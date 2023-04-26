@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
     - name: copy file via ssh password
       uses: appleboy/scp-action@v0.1.4
       with:
@@ -32,9 +33,6 @@ jobs:
         source: ./
         target: /home/protected/noisedive
 
-  install:
-    runs-on: ubuntu-latest
-    steps:
     - name: build and install latest package version
       uses: appleboy/ssh-action@master
       env:
