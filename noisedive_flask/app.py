@@ -57,7 +57,7 @@ def create_app():
 
     @app.errorhandler(404)
     def notFound(e):
-        message("1", "404")
+        message("1", "404", str(e))  # TODO: remove, temp
         return render_template("404.html"), 404
 
     app.register_blueprint(postBlueprint)
