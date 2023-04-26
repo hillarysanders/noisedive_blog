@@ -24,6 +24,7 @@ setup(
 # TODO: 
 # TODO: 
 # TODO: NEXT UP:
+# 0) make deployment.yaml auto build and install most recent package version.
 # 1) make it so the databases aren't cleared each time (no github)
 # 2) document just-once and every-time steps in README or google doc!
 # TODO: 

@@ -41,4 +41,21 @@ jobs:
         source: ./
         target: /home/protected/noisedive
 
+  install:
+    name: install
+    runs-on: ubuntu-latest
+    steps:
+      uses: appleboy/ssh-action@master
+      env:
+        GITHUB_WORKSPACE: ${{ github.workspace }}  # Set the environment variable for github.workspace
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        # Build and install the most recent package version:
+        script: |
+          cd /home/protected/noisedive/ && source venv/bin/activate
+          python setup.py bdist_wheel
+          pip install $(ls dist/noisedive_flask-*.whl | sort -V | tail -n 1) --force-reinstall
+
 
