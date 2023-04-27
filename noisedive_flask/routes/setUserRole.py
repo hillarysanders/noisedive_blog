@@ -1,4 +1,4 @@
-from helpers import sqlite3, Blueprint, session, redirect,message
+from noisedive_flask.helpers import sqlite3, Blueprint, session, redirect,message
 
 setUserRoleBlueprint = Blueprint("setUserRole", __name__)
 

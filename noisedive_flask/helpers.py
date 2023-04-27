@@ -6,7 +6,7 @@ from os.path import exists
 from datetime import datetime
 from passlib.hash import sha256_crypt
 from flask import render_template, Blueprint
-from forms import (
+from noisedive_flask.forms import (
     loginForm,
     signUpForm,
     commentForm,
@@ -25,14 +25,11 @@ from flask import (
     Blueprint,
 )
 basedir = os.path.abspath(os.path.dirname(__file__))
+DB_NAME = 'sqlite.db'
+DB_DIR = 'noisedive_flask/db'
+DB_PATH = os.path.join(DB_DIR, DB_NAME)
 
-def get_sqlite_cursor_and_connection(table_name):
-    # if table_name not in ['users', 'posts', 'comments']:
-    #      # some warning
-     # Construct the absolute paths to the database files
-    if not table_name.endswith('.db'):
-         table_name = f'{table_name}.db'
-    db_path = os.path.join(basedir, 'db', table_name)
+def get_sqlite_cursor_and_connection(db_path=DB_PATH):
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
     return cursor, connection
@@ -40,6 +37,24 @@ def get_sqlite_cursor_and_connection(table_name):
 def get_sqlite_cursor(table_name):
     cursor, _ = get_sqlite_cursor_and_connection(table_name)
     return cursor
+
+# TODO: return named dictionary (attrs)
+def query(query_str, fetchone=False):
+    with sqlite3.connect(DB_PATH) as conn:
+        cursor = conn.cursor()
+        if fetchone:
+             results = cursor.execute(query_str).fetchone()
+        else:
+             results = cursor.execute(query_str).fetchall()
+        cursor.close()
+        return results
+        
+def commit_to_db(query_str):
+    with sqlite3.connect(DB_PATH) as conn:
+        cursor = conn.cursor()
+        cursor.execute(query_str)
+        cursor.close()
+
 
 def currentDate():
     return datetime.now().strftime("%d.%m.%y")
@@ -64,17 +79,8 @@ def message(color, message):
 
 
 def addPoints(points, user):
-    cursor, connection = get_sqlite_cursor_and_connection('users.db')
-    cursor.execute(
-        f'update users set points = points+{points} where userName = "{user}"'
-    )
-    connection.commit()
-    message("2", f'{points} POINTS ADDED TO "{user}"')
-
+    commit_to_db(f'update users set points = points+{points} where userName = "{user}"')
 
 def getProfilePicture(userName):
-    cursor = get_sqlite_cursor('users.db')
-    cursor.execute(
-        f'select profilePicture from users where lower(userName) = "{userName.lower()}"'
-    )
-    return cursor.fetchone()[0]
+    return query(f'select profilePicture from users where lower(userName) = "{userName.lower()}"', fetchone=True)[0]
+    

@@ -1,7 +1,6 @@
-from helpers import (
+from noisedive_flask.helpers import (
     session,
     secrets,
-    sqlite3,
     request,
     flash,
     get_sqlite_cursor_and_connection,
@@ -13,6 +12,7 @@ from helpers import (
     Blueprint,
     signUpForm,
     sha256_crypt,
+    query
     
 )
 
@@ -21,62 +21,45 @@ signUpBlueprint = Blueprint("signup", __name__)
 
 @signUpBlueprint.route("/signup", methods=["GET", "POST"])
 def signup():
-    match "userName" in session:
-        case True:
-            message("1", f'USER: "{session["userName"]}" ALREADY LOGGED IN')
-            return redirect("/")
-        case False:
-            form = signUpForm(request.form)
-            if request.method == "POST":
-                userName = request.form["userName"]
-                email = request.form["email"]
-                password = request.form["password"]
-                passwordConfirm = request.form["passwordConfirm"]
-                userName = userName.replace(" ", "")
-                cursor, connection = get_sqlite_cursor_and_connection('users.db')
-                cursor.execute("select userName from users")
-                users = str(cursor.fetchall())
-                cursor.execute("select email from users")
-                mails = str(cursor.fetchall())
-                if not userName in users and not email in mails:
-                    if passwordConfirm == password:
-                        match userName.isascii():
-                            case True:
-                                password = sha256_crypt.hash(password)
-                                # connection = sqlite3.connect("db/users.db")
-                                # cursor = connection.cursor()
-                                cursor.execute(
-                                    f"""
-                                    insert into users(userName,email,password,profilePicture,role,points,creationDate,creationTime) 
-                                    values("{userName}",
-                                    "{email}",
-                                    "{password}",
-                                    "https://api.dicebear.com/5.x/identicon/svg?seed={secrets.token_urlsafe(32)}",
-                                    "user",
-                                    0,
-                                    "{currentDate()}",
-                                    "{currentTime()}")
-                                    """
-                                )
-                                connection.commit()
-                                message("2", f'USER: "{userName}" ADDED TO DATABASE')
-                                return redirect("/")
-                            case False:
-                                message(
-                                    "1",
-                                    f'USERNAME: "{userName}" DOES NOT FITS ASCII CHARACTERS',
-                                )
-                                flash("username does not fit ascii charecters", "error")
-                    elif passwordConfirm != password:
-                        message("1", " PASSWORDS MUST MATCH ")
-                        flash("password must match", "error")
-                elif userName in users and email in mails:
-                    message("1", f'"{userName}" & "{email}" IS UNAVAILABLE ')
-                    flash("This username and email is unavailable.", "error")
-                elif not userName in users and email in mails:
-                    message("1", f'THIS EMAIL "{email}" IS UNAVAILABLE ')
-                    flash("This email is unavailable.", "error")
-                elif userName in users and not email in mails:
-                    message("1", f'THIS USERNAME "{userName}" IS UNAVAILABLE ')
-                    flash("This username is unavailable.", "error")
-            return render_template("signup.html", form=form, hideSignUp=True)
+    if "userName" in session:
+        return redirect("/")
+    
+    form = signUpForm(request.form)
+    success = True
+    if request.method == "POST":
+        userName = request.form["userName"]
+        email = request.form["email"]
+        password = request.form["password"]
+        passwordConfirm = request.form["passwordConfirm"]
+        if query("select userName from users where userName={userName}"):
+            flash("This username is unavailable.", "error")
+            success = False
+
+        if query("select email from users where email={email}"):
+            flash("This email is unavailable.", "error")
+            success = False
+
+        if passwordConfirm != password:
+            flash("Passwords do not match.", "error")
+            success = False
+
+        if not userName.isascii():
+            flash("username does not fit ascii charecters", "error")
+            success = False
+
+        if success:
+            password = sha256_crypt.hash(password)
+            commit_to_db(
+                f"""
+                insert into users(userName,email,password,profilePicture,role,points,creationDate,creationTime) 
+                values("{userName}",
+                "{email}",
+                "{password}",
+                "https://api.dicebear.com/5.x/identicon/svg?seed={secrets.token_urlsafe(32)}",
+                "user",
+                0,
+                "{currentDate()}",
+                "{currentTime()}")
+                """
+            )
+    return render_template("signup.html", form=form, hideSignUp=True)

@@ -1,4 +1,4 @@
-from helpers import (
+from noisedive_flask.helpers import (
     session,
     redirect,
     render_template,

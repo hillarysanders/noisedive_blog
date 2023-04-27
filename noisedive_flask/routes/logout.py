@@ -1,4 +1,4 @@
-from helpers import session, redirect, message, Blueprint
+from noisedive_flask.helpers import session, redirect, message, Blueprint
 
 
 logoutBlueprint = Blueprint("logout", __name__)

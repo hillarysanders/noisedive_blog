@@ -5,7 +5,7 @@ sys.path.append('/home/public/noisedive_flask')
 sys.path.append('/home/protected/noisedive/noisedive_flask')
 
 import socket
-from helpers import (
+from noisedive_flask.helpers import (
     secrets,
     message,
     render_template,
@@ -13,34 +13,35 @@ from helpers import (
     Flask,
 )
 
-from routes.post import postBlueprint
-from routes.user import userBlueprint
-from routes.index import indexBlueprint
-from routes.login import loginBlueprint
-from routes.signup import signUpBlueprint
-from routes.logout import logoutBlueprint
-from routes.search import searchBlueprint
-from routes.searchBar import searchBarBlueprint
-from routes.editPost import editPostBlueprint
-from routes.dashboard import dashboardBlueprint
-from routes.adminPanel import adminPanelBlueprint
-from routes.deleteUser import deleteUserBlueprint
-from routes.deletePost import deletePostBlueprint
-from routes.createPost import createPostBlueprint
-from routes.setUserRole import setUserRoleBlueprint
-from routes.deleteComment import deleteCommentBlueprint
-from routes.changeUserName import changeUserNameBlueprint
-from routes.changePassword import changePasswordBlueprint
-from routes.adminPanelUsers import adminPanelUsersBlueprint
-from routes.adminPanelPosts import adminPanelPostsBlueprint
-from routes.accountSettings import accountSettingsBlueprint
-from routes.adminPanelComments import adminPanelCommentsBlueprint
-from dbChecker import dbFolder, usersTable, postsTable, commentsTable
+from noisedive_flask.routes.post import postBlueprint
+from noisedive_flask.routes.user import userBlueprint
+from noisedive_flask.routes.index import indexBlueprint
+from noisedive_flask.routes.login import loginBlueprint
+from noisedive_flask.routes.signup import signUpBlueprint
+from noisedive_flask.routes.logout import logoutBlueprint
+from noisedive_flask.routes.search import searchBlueprint
+from noisedive_flask.routes.searchBar import searchBarBlueprint
+from noisedive_flask.routes.editPost import editPostBlueprint
+from noisedive_flask.routes.dashboard import dashboardBlueprint
+from noisedive_flask.routes.adminPanel import adminPanelBlueprint
+from noisedive_flask.routes.deleteUser import deleteUserBlueprint
+from noisedive_flask.routes.deletePost import deletePostBlueprint
+from noisedive_flask.routes.createPost import createPostBlueprint
+from noisedive_flask.routes.setUserRole import setUserRoleBlueprint
+from noisedive_flask.routes.deleteComment import deleteCommentBlueprint
+from noisedive_flask.routes.changeUserName import changeUserNameBlueprint
+from noisedive_flask.routes.changePassword import changePasswordBlueprint
+from noisedive_flask.routes.adminPanelUsers import adminPanelUsersBlueprint
+from noisedive_flask.routes.adminPanelPosts import adminPanelPostsBlueprint
+from noisedive_flask.routes.accountSettings import accountSettingsBlueprint
+from noisedive_flask.routes.adminPanelComments import adminPanelCommentsBlueprint
+from dbChecker import check_if_db_dir_exists, check_if_db_exists, usersTable, postsTable, commentsTable
 
 
 def create_app():
 
-    dbFolder()
+    check_if_db_dir_exists()
+    check_if_db_exists()
     usersTable()
     postsTable()
     commentsTable()

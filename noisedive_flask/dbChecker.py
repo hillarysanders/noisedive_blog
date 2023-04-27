@@ -1,33 +1,35 @@
-from helpers import mkdir, exists, message, sqlite3, get_sqlite_cursor_and_connection
+import os
+import sqlite3
+from noisedive_flask.helpers import query, commit_to_db, mkdir, exists, message, DB_DIR, DB_PATH
+
+def check_if_db_dir_exists():
+    if exists(DB_DIR):
+        message("6", f'Folder: {DB_DIR} FOUND')
+    else:
+        message("1", f'Folder: {DB_DIR} NOT FOUND')
+        mkdir(DB_DIR)
+        message("2", f'Folder: {DB_DIR} CREATED')
 
 
-def dbFolder():
-    match exists("db"):
+def check_if_db_exists():
+    match exists(DB_PATH):
         case True:
-            message("6", 'Folder: "/db" FOUND')
+            message("6", f'DATABASE: {DB_PATH} FOUND')
         case False:
-            message("1", 'Folder: "/db" NOT FOUND')
-            mkdir("db")
-            message("2", 'Folder: "/db" CREATED')
+            message("1", f'DATABASE: {DB_PATH} NOT FOUND')
+            open(DB_PATH, "x")
+            message("2", f'DATABASE: {DB_PATH} CREATED')
+
+
+def check_if_table_exists(table_name):
+    exists = query(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name}'")
+    return len(exists) > 0 
 
 
 def usersTable():
-    match exists("db/users.db"):
-        case True:
-            message("6", 'DATABASE: "users.db" FOUND')
-        case False:
-            message("1", 'DATABASE: "users.db" NOT FOUND')
-            open("db/users.db", "x")
-            message("2", 'DATABASE: "users.db" CREATED')
-    cursor, connection = get_sqlite_cursor_and_connection('users.db')
-    try:
-        cursor.execute("""SELECT * FROM users; """).fetchall()
-        message("6", 'TABLE: "Users" FOUND')
-        connection.close()
-    except:
-        message("1", 'TABLE: "Users" NOT FOUND')
-        usersTable = """
-        CREATE TABLE IF NOT EXISTS Users(
+    if not check_if_table_exists('users'):
+        commit_to_db("""
+        CREATE TABLE IF NOT EXISTS users(
 	    "userID"	INTEGER NOT NULL UNIQUE,
 	    "userName"	TEXT UNIQUE,
 	    "email"	TEXT UNIQUE,
@@ -38,66 +40,31 @@ def usersTable():
 	    "creationDate"	TEXT,
 	    "creationTime"	TEXT,
 	    PRIMARY KEY("userID" AUTOINCREMENT)
-        );"""
-        cursor.execute(usersTable)
-        connection.commit()
-        connection.close()
-        message("2", 'TABLE: "Users" CREATED')
+        );""")
 
 
 def postsTable():
-    match exists("db/posts.db"):
-        case True:
-            message("6", 'DATABASE: "posts.db" FOUND')
-        case False:
-            message("1", 'DATABASE: "posts.db" NOT FOUND')
-            open("db/posts.db", "x")
-            message("2", 'DATABASE: "posts.db" CREATED')
-    connection = sqlite3.connect("db/posts.db")
-    cursor = connection.cursor()
-    try:
-        cursor.execute("""SELECT * FROM posts; """).fetchall()
-        message("6", 'TABLE: "Posts" FOUND')
-        connection.close()
-    except:
-        message("1", 'TABLE: "Posts" NOT FOUND')
-        postsTable = """
-        CREATE TABLE "posts" (
-    	"id"	INTEGER NOT NULL UNIQUE,
-    	"title"	TEXT NOT NULL,
-    	"tags"	TEXT,
-    	"content"	TEXT NOT NULL,
-    	"author"	TEXT NOT NULL,
-    	"date"	TEXT NOT NULL,
-    	"time"	TEXT NOT NULL,
-    	"views"	TEXT,
-    	"lastEditDate"	TEXT,
-        "lastEditTime"	TEXT,
-    	PRIMARY KEY("id" AUTOINCREMENT)
-        );"""
-        cursor.execute(postsTable)
-        connection.commit()
-        connection.close()
-        message("2", 'TABLE: "Posts" CREATED')
+    if not check_if_table_exists('posts'):
+        commit_to_db("""
+            CREATE TABLE "posts" (
+            "id"	INTEGER NOT NULL UNIQUE,
+            "title"	TEXT NOT NULL,
+            "tags"	TEXT,
+            "content"	TEXT NOT NULL,
+            "author"	TEXT NOT NULL,
+            "date"	TEXT NOT NULL,
+            "time"	TEXT NOT NULL,
+            "views"	TEXT,
+            "lastEditDate"	TEXT,
+            "lastEditTime"	TEXT,
+            PRIMARY KEY("id" AUTOINCREMENT)
+            );""")
+
 
 
 def commentsTable():
-    match exists("db/comments.db"):
-        case True:
-            message("6", 'DATABASE: "comments.db" FOUND')
-        case False:
-            message("1", 'DATABASE: "comments.db" NOT FOUND')
-            open("db/comments.db", "x")
-            message("2", 'DATABASE: "comments.db" CREATED')
-    connection = sqlite3.connect("db/comments.db")
-    cursor = connection.cursor()
-    try:
-        cursor.execute("""SELECT * FROM comments; """).fetchall()
-        message("6", 'TABLE: "Comments" FOUND')
-        connection.close()
-    except:
-        message("1", 'TABLE: "Comments" NOT FOUND')
-        commentsTable = """
+    if not check_if_table_exists('comments'):
+        commit_to_db("""
         CREATE TABLE IF NOT EXISTS comments(
 	    "id"	INTEGER NOT NULL,
 	    "post"	INTEGER,
@@ -106,8 +73,4 @@ def commentsTable():
 	    "date"	TEXT,
 	    "time"	TEXT,
 	    PRIMARY KEY("id" AUTOINCREMENT)
-        );"""
-        cursor.execute(commentsTable)
-        connection.commit()
-        connection.close()
-        message("2", 'TABLE: "Comments" CREATED')
+        );""")

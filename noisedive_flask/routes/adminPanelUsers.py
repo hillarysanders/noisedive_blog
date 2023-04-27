@@ -1,4 +1,4 @@
-from helpers import sqlite3, render_template, Blueprint, session, redirect
+from noisedive_flask.helpers import sqlite3, render_template, Blueprint, session, redirect
 
 adminPanelUsersBlueprint = Blueprint("adminPanelUsers", __name__)
 
