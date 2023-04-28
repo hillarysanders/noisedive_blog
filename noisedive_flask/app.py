@@ -7,9 +7,9 @@ current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # sys.path.append(current_dir)
 # # are these even needed? Maybe not because it's a package. TODO: test.
 # # production:
-# sys.path.append('/home/protected/noisedive/noisedive_flask')
+sys.path.append('/home/protected/noisedive')
 # # if not found there, search in public:
-# sys.path.append('/home/public/noisedive_flask')
+# sys.path.append('/home/public/')
 from datetime import timedelta
 import socket
 from noisedive_flask.helpers import (
