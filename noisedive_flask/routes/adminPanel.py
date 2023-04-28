@@ -6,7 +6,7 @@ adminPanelBlueprint = Blueprint("adminPanel", __name__)
 @adminPanelBlueprint.route("/admin")
 def adminPanel():
     if "userName" in session:
-        role = query(f'select role from users where userName = "{session["userName"]}"', fetchone=True)[0]
+        role = query(f'select role from users where userName = ?', (session["userName"],), fetchone=True)[0]
         if role == "admin":
             return render_template("adminPanel.html")
 

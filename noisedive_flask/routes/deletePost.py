@@ -12,10 +12,10 @@ deletePostBlueprint = Blueprint("deletePost", __name__)
 @deletePostBlueprint.route("/deletepost/<int:postID>/redirect=<direct>")
 def deletePost(postID, direct):
     if "userName" in session:
-        author = query(f"select author from posts where id = {postID}", fetchone=True)
+        author = query(f"select author from posts where id = ?", (postID,), fetchone=True)
         direct = direct.replace("&", "/")
         if author and author[0] == session["userName"]:
-            query(f"delete from posts where id = {postID}", commit=True)
+            query(f"delete from posts where id = ?", (postID,), commit=True)
             message("2", f'POST: "{postID}" DELETED')
         else:
             message(

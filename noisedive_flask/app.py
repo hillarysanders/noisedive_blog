@@ -3,14 +3,14 @@ import os
 # Get the directory above the directory containing the current script (__file__)
 current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# local:
-sys.path.append(current_dir)
-# are these even needed? Maybe not because it's a package. TODO: test.
-# production:
-sys.path.append('/home/protected/noisedive/noisedive_flask')
-# if not found there, search in public:
-sys.path.append('/home/public/noisedive_flask')
-
+# # local:
+# sys.path.append(current_dir)
+# # are these even needed? Maybe not because it's a package. TODO: test.
+# # production:
+# sys.path.append('/home/protected/noisedive/noisedive_flask')
+# # if not found there, search in public:
+# sys.path.append('/home/public/noisedive_flask')
+from datetime import timedelta
 import socket
 from noisedive_flask.helpers import (
     secrets,
@@ -56,6 +56,7 @@ def create_app():
     app = Flask(__name__)
     app.secret_key = secrets.token_urlsafe(32)
     app.config["SESSION_PERMANENT"] = True
+    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=30)
 
     @app.context_processor
     def utility_processor():
@@ -65,7 +66,7 @@ def create_app():
 
     @app.errorhandler(404)
     def notFound(e):
-        message("1", "404", str(e))  # TODO: remove, temp
+        message("1", str(e))  # TODO: remove, temp
         return render_template("404.html"), 404
 
     app.register_blueprint(postBlueprint)

@@ -14,8 +14,8 @@ dashboardBlueprint = Blueprint("dashboard", __name__)
 def dashboard(userName):
     if "userName" in session:
         if session["userName"].lower() == userName.lower():
-            posts = query(f'select * from posts where author = "{session["userName"]}"')
-            comments = query(f'select * from comments where lower(user) = "{userName.lower()}"')
+            posts = query(f'select * from posts where author = ?', (session["userName"],))
+            comments = query(f'select * from comments where lower(user) = ?', (userName.lower(),))
             showPosts = bool(posts)
             showComments = bool(comments)
             return render_template(

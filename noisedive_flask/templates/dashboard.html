@@ -16,32 +16,32 @@
 <h1 class="textCenter">Posts</h1>
 {% for post in posts %}
 <div class="post centeredHorizontally">
-  <a class="title textPrimary" href="/post/{{post[0]}} ">{{post[1]}}</a>
-  <div class="content" tag="content">{{post[3]|safe}}</div>
+  <a class="title textPrimary" href="/post/{{post.id}} ">{{post.title}}</a>
+  <div class="content" tag="content">{{post.content|safe}}</div>
   <section>
-    <a href="/editpost/{{post[0]}}" class="btn btnLink textPrimary">edit</a>
+    <a href="/editpost/{{post.id}}" class="btn btnLink textPrimary">edit</a>
     <a
-      href="/deletepost/{{post[0]}}/redirect=dashboard&{{session['userName'].lower()}}"
+      href="/deletepost/{{post.id}}/redirect=dashboard&{{session['userName'].lower()}}"
       class="btn btnLink textPrimary"
       >delete</a
     >
   </section>
   <div class="info">
-    <p>Tags: {{post[2]}}</p>
-    <p>Views: {{post[7]}}</p>
+    <p>Tags: {{post.tags}}</p>
+    <p>Views: {{post.views}}</p>
   </div>
   <div class="info">
-    <p>Creation Time: {{post[6]}}</p>
-    <p>Last Edit Time: {{post[9]}}</p>
+    <p>Creation Time: {{post.time}}</p>
+    <p>Last Edit Time: {{post.lastedittime}}</p>
   </div>
   <div class="info">
-    <p>Creation Date: {{post[5]}}</p>
-    <p>Last Edit Date: {{post[8]}}</p>
+    <p>Creation Date: {{post.date}}</p>
+    <p>Last Edit Date: {{post.lasteditdate}}</p>
   </div>
   {% if request.path == "/admin/posts" %}
   <p>
     Author:
-    <a href="/user/{{post[4].lower()}}" class="textPrimary">{{post[4]}}</a>
+    <a href="/user/{{post.author.lower()}}" class="textPrimary">{{post.author}}</a>
   </p>
   {% endif %}
 </div>
@@ -57,12 +57,12 @@
 <h1 class="textCenter">Comments</h1>
 {% for comment in comments %}
 <div class="post centeredHorizontally">
-  <div class="content" tag="content">{{comment[2]|safe}}</div>
+  <div class="content" tag="content">{{comment.comment|safe}}</div>
   <section class="comment">
-    <p class="commentCreationDate">Creation Date: {{comment[4]}}</p>
-    <p class="commentCreationTime">Creation Time: {{comment[5]}}</p>
+    <p class="commentCreationDate">Creation Date: {{comment.date}}</p>
+    <p class="commentCreationTime">Creation Time: {{comment.time}}</p>
   </section>
-  <a href="/post/{{comment[1]}}" class="btn btnLink textPrimary">go to post</a>
+  <a href="/post/{{comment.post}}" class="btn btnLink textPrimary">go to post</a>
 </div>
 {% endfor %} {% endif %} {% if request.path == "/admin/posts" %}
 <a href="/admin" class="btn btnLink textPrimary">↩️go back to admin panel</a>

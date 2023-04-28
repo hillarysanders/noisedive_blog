@@ -10,7 +10,7 @@ setup(
     #this will be the package name you will see, e.g. the output of 'conda list' in anaconda prompt
     name = 'noisedive_flask', 
     #some version number you may wish to add - increment this after every update
-    version='1.1.14', 
+    version='1.1.15', 
     include_package_data=True,
     # package_data=? (MANIFEST.in)
     install_requires=requirements,
@@ -35,6 +35,10 @@ setup(
 # TODO: 
 # TODO: 
 
+#### LOCALLY, RUN:
+# ~/noisedive_flask % FLASK_APP=noisedive_flask flask run
+
+# In production:
 # ### EACH TIME:
 # source venv/bin/activate
 # python setup.py bdist_wheel

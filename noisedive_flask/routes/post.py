@@ -20,12 +20,12 @@ postBlueprint = Blueprint("post", __name__)
 @postBlueprint.route("/post/<int:postID>", methods=["GET", "POST"])
 def post(postID):
     form = commentForm(request.form)
-    post = query(f'select * from posts where id = "{postID}"', fetchone=True)
+    post = query(f'select * from posts where id = ?', (postID,), fetchone=True)
     if len(post)==0:
         message("1", "404")
         return render_template("404.html")
     else:
-        query(f'update posts set views = views+1 where id = "{postID}"', commit=True)
+        query(f'update posts set views = views+1 where id = ?', (postID,), commit=True)
         if request.method == "POST":
             comment = request.form["comment"]
             query(f"""
@@ -38,7 +38,7 @@ def post(postID):
             flash("You earned 5 points by commenting ", "success")
             return redirect(f"/post/{postID}")
         
-        comments = query('select * from comments where post = "{postID}"')
+        comments = query('select * from comments where post = ?', (postID,))
         return render_template(
             "post.html",
             # horrible. Should be named dictionary!

@@ -22,7 +22,7 @@ def check_if_db_exists():
 
 
 def check_if_table_exists(table_name):
-    exists = query(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name}'")
+    exists = query(f"SELECT name FROM sqlite_master WHERE type='table' AND name=?", (table_name,))
     return exists is not None
 
 
@@ -64,6 +64,7 @@ def postsTable():
 
 def commentsTable():
     if not check_if_table_exists('comments'):
+        # TODO:
         query("""
         CREATE TABLE IF NOT EXISTS comments(
 	    "id"	INTEGER NOT NULL,

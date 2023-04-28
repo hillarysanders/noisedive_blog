@@ -10,15 +10,29 @@
 />
 {% endblock head %} {%block body%}
 <div class="container">
-  <div class="searchBar searchBarPage">
+  <form id="searchForm" class="searchBar searchBarPage" onsubmit="return searchBarSubmit()">
     <input
       type="text"
       id="searchBarInput"
       class="input"
       autocomplete="off"
       placeholder="search"
-    /><button onclick="searchBar()" class="btn">🔍</button>
-  </div>
+    />
+    <button type="submit" class="btn">🔍</button>
+  </form>
 </div>
-<script src="/static/js/searchBar.js"></script>
+<script>
+  function searchBarSubmit() {
+    const searchInput = document.getElementById('searchBarInput');
+    const query = encodeURIComponent(searchInput.value.trim());
+    if (query) {
+      // Construct the URL based on the search query and submit the form
+      // const query = encodeURIComponent(searchInput.value.trim()).replace(/%20/g, '+');
+      const searchURL = `/search/${query}`;
+      window.location.href = searchURL;
+    }
+    // Prevent the form from being submitted normally
+    return false;
+  }
+</script>
 {% endblock body %}

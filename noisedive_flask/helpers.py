@@ -25,7 +25,7 @@ from flask import (
     Flask,
     Blueprint,
 )
-basedir = os.path.abspath(os.path.dirname(__file__))
+# basedir = os.path.abspath(os.path.dirname(__file__))
 DB_NAME = 'sqlite.db'
 DB_DIR = 'noisedive_flask/db'
 DB_PATH = os.path.join(DB_DIR, DB_NAME)
@@ -64,8 +64,8 @@ def query(query_str, params=None, fetchone=False, commit=False):
         else:
             # Fetch the results based on the 'fetchone' argument
             results = cursor.fetchone() if fetchone else cursor.fetchall()
-            # Convert the results to dictionaries
-            results = [dict(row) for row in results] if results else None
+            # # Convert the results to dictionaries
+            # results = [dict(row) for row in results] if results else None
         cursor.close()
         return results
     
@@ -92,8 +92,8 @@ def message(color, message):
 
 
 def addPoints(points, user):
-    query(f'update users set points = points+? where userName = "?"', (points, user), commit=True)
+    query(f'update users set points = points+? where userName = ?', (points, user,), commit=True)
 
 def getProfilePicture(userName):
-    return query(f'select profilePicture from users where lower(userName) = "?"', (userName.lower()), fetchone=True)[0]
+    return query(f'select profilePicture from users where lower(userName) = ?', (userName.lower(),), fetchone=True)[0]
     

@@ -7,6 +7,7 @@ from noisedive_flask.helpers import (
     redirect,
     currentDate,
     currentTime,
+    loginForm,
     render_template,
     Blueprint,
     signUpForm,
@@ -30,11 +31,11 @@ def signup():
         email = request.form["email"]
         password = request.form["password"]
         passwordConfirm = request.form["passwordConfirm"]
-        if query("select userName from users where userName={userName}"):
+        if query("select userName from users where userName=?", (userName,)):
             flash("This username is unavailable.", "error")
             success = False
 
-        if query("select email from users where email={email}"):
+        if query("select email from users where email=?", (email,)):
             flash("This email is unavailable.", "error")
             success = False
 
@@ -48,17 +49,13 @@ def signup():
 
         if success:
             password = sha256_crypt.hash(password)
-            query(
-                f"""
+            query(f"""
                 insert into users(userName,email,password,profilePicture,role,points,creationDate,creationTime) 
-                values("{userName}",
-                "{email}",
-                "{password}",
-                "https://api.dicebear.com/5.x/identicon/svg?seed={secrets.token_urlsafe(32)}",
-                "user",
-                0,
-                "{currentDate()}",
-                "{currentTime()}")
-                """, commit=True
+                values(?, ?, ?, "https://api.dicebear.com/5.x/identicon/svg?seed={secrets.token_urlsafe(32)}",
+                       "user", 0, "{currentDate()}", "{currentTime()}")
+                """, (userName, email, password,), commit=True
             )
+            # now log them in automagically:
+            return render_template("login.html", form=loginForm(request.form), hideLogin=True)
+
     return render_template("signup.html", form=form, hideSignUp=True)
