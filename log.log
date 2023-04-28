@@ -66,3 +66,26 @@
 [28.04.23|14:52:45] USER: "hills" LOGGED IN
 [28.04.23|14:52:50] USER: "hills" LOGGED OUT
 [28.04.23|14:52:55] USER: "hills" LOGGED IN
+[28.04.23|14:57:02] Folder: noisedive_flask/db FOUND
+[28.04.23|14:57:02] DATABASE: noisedive_flask/db/sqlite.db FOUND
+[28.04.23|14:57:21] USER: "hills" LOGGED IN
+[28.04.23|14:57:24] POST: "1" FOUND
+[28.04.23|14:57:31] POST: "1" FOUND
+[28.04.23|14:57:31] POST: "foo foo" EDITED
+[28.04.23|14:57:51] COMMENT: "1" DELETED
+[28.04.23|15:00:09] POST: "fee fee" POSTED
+[28.04.23|15:00:12] POST: "2" DELETED
+[28.04.23|15:01:13] POST: "2" NOT DELETED "2" DOES NOT BELONG TO USER: hills
+[28.04.23|15:01:15] POST: "2" NOT DELETED "2" DOES NOT BELONG TO USER: hills
+[28.04.23|15:01:16] POST: "2" NOT DELETED "2" DOES NOT BELONG TO USER: hills
+[28.04.23|15:01:16] POST: "2" NOT DELETED "2" DOES NOT BELONG TO USER: hills
+[28.04.23|15:02:42] COMMENT: "2" DELETED
+[28.04.23|15:03:19] POST: "asdfasdf" POSTED
+[28.04.23|15:03:25] POST: "3" DELETED
+[28.04.23|15:05:17] Folder: noisedive_flask/db FOUND
+[28.04.23|15:05:17] DATABASE: noisedive_flask/db/sqlite.db FOUND
+[28.04.23|15:05:20] USER NOT LOGGED IN
+[28.04.23|15:05:20] 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[28.04.23|15:05:25] USER: "hills" LOGGED IN
+[28.04.23|15:05:33] POST: "asdfasd" POSTED
+[28.04.23|15:05:36] POST: "4" DELETED

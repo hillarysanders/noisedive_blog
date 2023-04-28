@@ -21,13 +21,12 @@ def deleteComment(commentID, direct):
         if user and user[0] == session["userName"]:
             query("DELETE FROM comments WHERE id = ?", params=(commentID,), commit=True)
             message("2", f'COMMENT: "{commentID}" DELETED')
-            return redirect(f"/{direct}")
         else:
             message(
                 "1",
                 f'COMMENT: "{commentID}" NOT DELETED "{commentID}" DOES NOT BELONG TO {session["userName"]}',
             )
-            return redirect(f"/{direct}")
     else:
         message("1", f"USER NEEDS TO LOGIN FOR DELETE COMMENT: {commentID}")
-        return redirect(f"/{direct}")
+        
+    return redirect(f"/{direct}")

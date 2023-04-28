@@ -11,6 +11,7 @@ deletePostBlueprint = Blueprint("deletePost", __name__)
 
 @deletePostBlueprint.route("/deletepost/<int:postID>/redirect=<direct>")
 def deletePost(postID, direct):
+    # TODO: add a 'are you sure' thingy
     if "userName" in session:
         author = query(f"select author from posts where id = ?", (postID,), fetchone=True)
         direct = direct.replace("&", "/")
@@ -24,4 +25,5 @@ def deletePost(postID, direct):
             )
     else:
         message("1", f'USER NEEDS TO LOGIN FOR DELETE POST: "{postID}"')
-    return redirect(f"/{direct}")
+    
+    return redirect(f"/")

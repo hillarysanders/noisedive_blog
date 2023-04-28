@@ -19,7 +19,7 @@ def editPost(postID):
     if "userName" in session:
         posts = query("select id from posts")
         if (postID,) in posts:
-            post = query(f"select * from posts where id = ?", (postID), fetchone=True)
+            post = query(f"select * from posts where id = ?", (postID,), fetchone=True)
             message("2", f'POST: "{postID}" FOUND')
             if post[4] == session["userName"]:
                 form = createPostForm(request.form)
