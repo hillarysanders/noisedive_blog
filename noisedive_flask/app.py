@@ -1,8 +1,15 @@
 import sys
 import os
-sys.path.append(os.getcwd())
-sys.path.append('/home/public/noisedive_flask')
+# Get the directory above the directory containing the current script (__file__)
+current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# local:
+sys.path.append(current_dir)
+# are these even needed? Maybe not because it's a package. TODO: test.
+# production:
 sys.path.append('/home/protected/noisedive/noisedive_flask')
+# if not found there, search in public:
+sys.path.append('/home/public/noisedive_flask')
 
 import socket
 from noisedive_flask.helpers import (
@@ -35,7 +42,7 @@ from noisedive_flask.routes.adminPanelUsers import adminPanelUsersBlueprint
 from noisedive_flask.routes.adminPanelPosts import adminPanelPostsBlueprint
 from noisedive_flask.routes.accountSettings import accountSettingsBlueprint
 from noisedive_flask.routes.adminPanelComments import adminPanelCommentsBlueprint
-from dbChecker import check_if_db_dir_exists, check_if_db_exists, usersTable, postsTable, commentsTable
+from noisedive_flask.dbChecker import check_if_db_dir_exists, check_if_db_exists, usersTable, postsTable, commentsTable
 
 
 def create_app():
@@ -86,7 +93,6 @@ def create_app():
 
     return app
 
-match __name__:
-    case "__main__":
-        app = create_app()
-        app.run(debug=False, host=socket.gethostbyname(socket.gethostname()))
+if __name__ == "__main__":
+    app = create_app()
+    app.run(debug=False, host=socket.gethostbyname(socket.gethostname()))

@@ -92,8 +92,8 @@ def message(color, message):
 
 
 def addPoints(points, user):
-    commit_to_db(f'update users set points = points+{points} where userName = "{user}"')
+    query(f'update users set points = points+? where userName = "?"', (points, user), commit=True)
 
 def getProfilePicture(userName):
-    return query(f'select profilePicture from users where lower(userName) = "{userName.lower()}"', fetchone=True)[0]
+    return query(f'select profilePicture from users where lower(userName) = "?"', (userName.lower()), fetchone=True)[0]
     

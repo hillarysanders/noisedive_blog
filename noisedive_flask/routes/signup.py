@@ -3,7 +3,6 @@ from noisedive_flask.helpers import (
     secrets,
     request,
     flash,
-    get_sqlite_cursor_and_connection,
     message,
     redirect,
     currentDate,

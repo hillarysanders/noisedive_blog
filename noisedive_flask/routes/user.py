@@ -3,7 +3,7 @@ from noisedive_flask.helpers import (
     message,
     render_template,
     Blueprint,
-    query, commit_to_db
+    query
 )
 
 userBlueprint = Blueprint("user", __name__)
