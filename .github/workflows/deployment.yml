@@ -43,6 +43,7 @@ jobs:
         script: |
           cd /home/protected/noisedive/ && source venv/bin/activate
           python setup.py bdist_wheel
-          pip install $(ls dist/noisedive_flask-*.whl | sort -V | tail -n 1) --force-reinstall
+          pip uninstall noisedive_flask
+          pip install $(ls dist/noisedive_flask-*.whl | sort -V | tail -n 1)
 
 
