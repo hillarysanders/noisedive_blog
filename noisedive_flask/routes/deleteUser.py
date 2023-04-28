@@ -4,8 +4,7 @@ from noisedive_flask.helpers import (
     message,
     redirect,
     Blueprint,
-    query,
-    commit_to_db
+    query
 )
 
 deleteUserBlueprint = Blueprint("deleteUser", __name__)
@@ -20,10 +19,7 @@ def deleteUser(userName, direct):
             return redirect(f"/{direct}")
         else:
             if user[1] == session["userName"] or perpetrator[0] == "admin":
-                commit_to_db(
-                    f'delete from users where lower(userName) = "{userName}"'
-                )
-                commit_to_db(f"update sqlite_sequence set seq = seq-1")
+                query(f'delete from users where lower(userName) = "{userName}"', commit=True)
 
                 if perpetrator[0] != "admin":
                     session.clear()

@@ -49,7 +49,7 @@ def signup():
 
         if success:
             password = sha256_crypt.hash(password)
-            commit_to_db(
+            query(
                 f"""
                 insert into users(userName,email,password,profilePicture,role,points,creationDate,creationTime) 
                 values("{userName}",
@@ -60,6 +60,6 @@ def signup():
                 0,
                 "{currentDate()}",
                 "{currentTime()}")
-                """
+                """, commit=True
             )
     return render_template("signup.html", form=form, hideSignUp=True)

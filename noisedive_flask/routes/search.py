@@ -1,74 +1,53 @@
 from noisedive_flask.helpers import (
-    sqlite3,
     render_template,
     Blueprint,
-    get_sqlite_cursor
+    query
 )
 
 searchBlueprint = Blueprint("search", __name__)
 
 
 @searchBlueprint.route("/search/<query>", methods=["GET", "POST"])
-def search(query):
-    queryNoWhiteSpace = query.replace("+", "")
-    query = query.replace("+", " ")
-    cursor = get_sqlite_cursor('users.db')
-    queryUsers = cursor.execute(
-        f"select * from users where userName like '%{query}%'"
-    ).fetchall()
-    queryUsers = cursor.execute(
-        f"select * from users where userName like '%{queryNoWhiteSpace}%'"
-    ).fetchall()
-    connection = sqlite3.connect("db/posts.db")
-    cursor = connection.cursor()
-    queryTags = cursor.execute(
-        f"select * from posts where tags like '%{query}%'"
-    ).fetchall()
-    queryTitles = cursor.execute(
-        f"select * from posts where title like '%{query}%'"
-    ).fetchall()
-    queryAuthors = cursor.execute(
-        f"select * from posts where author like '%{query}%'"
-    ).fetchall()
-    queryTags = cursor.execute(
-        f"select * from posts where tags like '%{queryNoWhiteSpace}%'"
-    ).fetchall()
-    queryTitles = cursor.execute(
-        f"select * from posts where title like '%{queryNoWhiteSpace}%'"
-    ).fetchall()
-    queryAuthors = cursor.execute(
-        f"select * from posts where author like '%{queryNoWhiteSpace}%'"
-    ).fetchall()
-    posts = []
-    users = []
-    empty = False
-    match queryTags == []:
-        case False:
-            posts.append(queryTags)
-    match queryTitles == []:
-        case False:
-            posts.append(queryTitles)
-    match queryAuthors == []:
-        case False:
-            posts.append(queryAuthors)
-    match queryUsers == []:
-        case False:
-            users.append(queryUsers)
-    if not posts and not users:
-        empty = True
-    resultsID = []
-    for post in posts:
-        for post in post:
-            if post[0] not in resultsID:
-                resultsID.append(post[0])
-    posts = []
-    for postID in resultsID:
-        cursor.execute(f"select * from posts where id = {postID}")
-        posts.append(cursor.fetchall())
+def search(query_str):
+    queryNoWhiteSpace = query_str.replace("+", "")
+    query_str = query_str.replace("+", " ")
+    
+    # Search for users
+    queryUsers = query(
+        "SELECT * FROM users WHERE userName LIKE ? OR userName LIKE ?",
+        params=(f"%{query_str}%", f"%{queryNoWhiteSpace}%"),
+        fetchone=False
+    )
+    
+    # Search for posts
+    queryTags = query(
+        "SELECT * FROM posts WHERE tags LIKE ? OR tags LIKE ?",
+        params=(f"%{query_str}%", f"%{queryNoWhiteSpace}%"),
+        fetchone=False
+    )
+    queryTitles = query(
+        "SELECT * FROM posts WHERE title LIKE ? OR title LIKE ?",
+        params=(f"%{query_str}%", f"%{queryNoWhiteSpace}%"),
+        fetchone=False
+    )
+    queryAuthors = query(
+        "SELECT * FROM posts WHERE author LIKE ? OR author LIKE ?",
+        params=(f"%{query_str}%", f"%{queryNoWhiteSpace}%"),
+        fetchone=False
+    )
+    
+    posts = queryTags + queryTitles + queryAuthors
+    
+    # Remove duplicates from the posts list based on the 'id' column
+    seen_ids = set()
+    posts = [post for post in posts if not (post['id'] in seen_ids or seen_ids.add(post['id']))]
+    
+    empty = not (posts or queryUsers)
+    
     return render_template(
         "search.html",
         posts=posts,
-        users=users,
-        query=query,
+        users=queryUsers,
+        query=query_str,
         empty=empty,
     )

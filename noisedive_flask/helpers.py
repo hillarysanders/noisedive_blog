@@ -6,6 +6,7 @@ from os.path import exists
 from datetime import datetime
 from passlib.hash import sha256_crypt
 from flask import render_template, Blueprint
+from collections import namedtuple
 from noisedive_flask.forms import (
     loginForm,
     signUpForm,
@@ -29,33 +30,45 @@ DB_NAME = 'sqlite.db'
 DB_DIR = 'noisedive_flask/db'
 DB_PATH = os.path.join(DB_DIR, DB_NAME)
 
-def get_sqlite_cursor_and_connection(db_path=DB_PATH):
-    connection = sqlite3.connect(db_path)
-    cursor = connection.cursor()
-    return cursor, connection
+# def get_sqlite_cursor_and_connection(db_path=DB_PATH):
+#     connection = sqlite3.connect(db_path)
+#     cursor = connection.cursor()
+#     return cursor, connection
     
-def get_sqlite_cursor(table_name):
-    cursor, _ = get_sqlite_cursor_and_connection(table_name)
-    return cursor
+# def get_sqlite_cursor(table_name):
+#     cursor, _ = get_sqlite_cursor_and_connection(table_name)
+#     return cursor
 
-# TODO: return named dictionary (attrs)
-def query(query_str, fetchone=False):
+def named_tuple_row_factory(cursor, row):
+    # Define a namedtuple class based on the cursor description (column names)
+    columns = [column[0].lower() for column in cursor.description]
+    Row = namedtuple("Row", columns)
+    # Create a namedtuple instance using the row data
+    return Row(*row)
+
+
+def query(query_str, params=None, fetchone=False, commit=False):
     with sqlite3.connect(DB_PATH) as conn:
+        # Set the row_factory attribute to the named_tuple_row_factory (important for code clarity, stability, ease!)
+        conn.row_factory = named_tuple_row_factory
         cursor = conn.cursor()
-        if fetchone:
-             results = cursor.execute(query_str).fetchone()
+        if params is None:
+            # Use an empty tuple if no parameters are provided
+            params = ()
+        # Execute the query with the parameters
+        cursor.execute(query_str, params)
+        # If the query is a commit operation, commit the changes
+        if commit:
+            conn.commit()
+            results = None
         else:
-             results = cursor.execute(query_str).fetchall()
+            # Fetch the results based on the 'fetchone' argument
+            results = cursor.fetchone() if fetchone else cursor.fetchall()
+            # Convert the results to dictionaries
+            results = [dict(row) for row in results] if results else None
         cursor.close()
         return results
-        
-def commit_to_db(query_str):
-    with sqlite3.connect(DB_PATH) as conn:
-        cursor = conn.cursor()
-        cursor.execute(query_str)
-        cursor.close()
-
-
+    
 def currentDate():
     return datetime.now().strftime("%d.%m.%y")
 

@@ -10,7 +10,7 @@ setup(
     #this will be the package name you will see, e.g. the output of 'conda list' in anaconda prompt
     name = 'noisedive_flask', 
     #some version number you may wish to add - increment this after every update
-    version='1.1.12', 
+    version='1.1.13', 
     include_package_data=True,
     # package_data=? (MANIFEST.in)
     install_requires=requirements,
@@ -24,9 +24,10 @@ setup(
 # TODO: 
 # TODO: 
 # TODO: NEXT UP:
-# 0) make deployment.yaml auto build and install most recent package version.
-# 1) make it so the databases aren't cleared each time (no github)
-# 2) document just-once and every-time steps in README or google doc!
+# 0) make deployment.yaml auto build and install most recent package version. DONE
+# 1) either abandon the base repo or finish porting all the query code to be non-awful and use one DB, and close conns!
+# 2) make it so the databases aren't cleared each time (no github)
+# 3) document just-once and every-time steps in README or google doc
 # TODO: 
 # TODO: 
 # TODO: 

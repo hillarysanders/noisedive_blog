@@ -28,7 +28,7 @@ def check_if_table_exists(table_name):
 
 def usersTable():
     if not check_if_table_exists('users'):
-        commit_to_db("""
+        query("""
         CREATE TABLE IF NOT EXISTS users(
 	    "userID"	INTEGER NOT NULL UNIQUE,
 	    "userName"	TEXT UNIQUE,
@@ -40,12 +40,12 @@ def usersTable():
 	    "creationDate"	TEXT,
 	    "creationTime"	TEXT,
 	    PRIMARY KEY("userID" AUTOINCREMENT)
-        );""")
+        );""", commit=True)
 
 
 def postsTable():
     if not check_if_table_exists('posts'):
-        commit_to_db("""
+        query("""
             CREATE TABLE "posts" (
             "id"	INTEGER NOT NULL UNIQUE,
             "title"	TEXT NOT NULL,
@@ -58,13 +58,13 @@ def postsTable():
             "lastEditDate"	TEXT,
             "lastEditTime"	TEXT,
             PRIMARY KEY("id" AUTOINCREMENT)
-            );""")
+            );""", commit=True)
 
 
 
 def commentsTable():
     if not check_if_table_exists('comments'):
-        commit_to_db("""
+        query("""
         CREATE TABLE IF NOT EXISTS comments(
 	    "id"	INTEGER NOT NULL,
 	    "post"	INTEGER,
@@ -73,4 +73,4 @@ def commentsTable():
 	    "date"	TEXT,
 	    "time"	TEXT,
 	    PRIMARY KEY("id" AUTOINCREMENT)
-        );""")
+        );""", commit=True)

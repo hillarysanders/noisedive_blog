@@ -11,8 +11,7 @@ from noisedive_flask.helpers import (
     render_template,
     Blueprint,
     commentForm,
-    query,
-    commit_to_db
+    query
 )
 
 postBlueprint = Blueprint("post", __name__)
@@ -26,16 +25,15 @@ def post(postID):
         message("1", "404")
         return render_template("404.html")
     else:
-        commit_to_db(f'update posts set views = views+1 where id = "{postID}"')
+        query(f'update posts set views = views+1 where id = "{postID}"', commit=True)
         if request.method == "POST":
             comment = request.form["comment"]
-            commit_to_db(f"""
+            query(f"""
                     insert into comments(post,comment,user,date,time)
                     values({postID},"{comment}","{session["userName"]}",
                     "{currentDate()}",
                     "{currentTime()}")
-                    """
-                )
+                    """, commit=True)
             addPoints(5, session["userName"])
             flash("You earned 5 points by commenting ", "success")
             return redirect(f"/post/{postID}")
