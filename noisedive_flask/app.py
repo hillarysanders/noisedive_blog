@@ -47,9 +47,16 @@ from noisedive_flask.dbChecker import check_if_db_dir_exists, check_if_db_exists
 
 def create_app():
 
+    print('HELLO')
+    message(1, 'HELLO!')
+    print(sys.path)
+    message(1, "check_if_db_dir_exists")
     check_if_db_dir_exists()
+    message(1, "check_if_db_exists")
     check_if_db_exists()
+    message(1, "making usersTable")
     usersTable()
+    message(1, "making postsTable")
     postsTable()
     commentsTable()
 
