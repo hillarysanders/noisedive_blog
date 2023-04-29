@@ -20,6 +20,10 @@ from noisedive_flask.helpers import (
     Flask,
 )
 
+print('HELLO 1')
+message(1, 'HELLO 2!')
+print(sys.path)
+
 from noisedive_flask.routes.post import postBlueprint
 from noisedive_flask.routes.user import userBlueprint
 from noisedive_flask.routes.index import indexBlueprint

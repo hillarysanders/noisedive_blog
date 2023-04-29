@@ -89,3 +89,17 @@
 [28.04.23|15:05:25] USER: "hills" LOGGED IN
 [28.04.23|15:05:33] POST: "asdfasd" POSTED
 [28.04.23|15:05:36] POST: "4" DELETED
+[28.04.23|18:01:16] HELLO!
+[28.04.23|18:01:16] check_if_db_dir_exists
+[28.04.23|18:01:16] Folder: noisedive_flask/db FOUND
+[28.04.23|18:01:16] check_if_db_exists
+[28.04.23|18:01:16] DATABASE: noisedive_flask/db/sqlite.db FOUND
+[28.04.23|18:01:16] making usersTable
+[28.04.23|18:01:16] making postsTable
+[28.04.23|18:01:28] HELLO!
+[28.04.23|18:01:28] check_if_db_dir_exists
+[28.04.23|18:01:28] Folder: noisedive_flask/db FOUND
+[28.04.23|18:01:28] check_if_db_exists
+[28.04.23|18:01:28] DATABASE: noisedive_flask/db/sqlite.db FOUND
+[28.04.23|18:01:28] making usersTable
+[28.04.23|18:01:28] making postsTable
