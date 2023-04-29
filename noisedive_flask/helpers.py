@@ -31,15 +31,6 @@ DB_DIR = os.path.join(basedir, 'db')
 # DB_DIR = 'noisedive_flask/db'
 DB_PATH = os.path.join(DB_DIR, DB_NAME)
 
-# def get_sqlite_cursor_and_connection(db_path=DB_PATH):
-#     connection = sqlite3.connect(db_path)
-#     cursor = connection.cursor()
-#     return cursor, connection
-    
-# def get_sqlite_cursor(table_name):
-#     cursor, _ = get_sqlite_cursor_and_connection(table_name)
-#     return cursor
-
 def named_tuple_row_factory(cursor, row):
     # Define a namedtuple class based on the cursor description (column names)
     columns = [column[0].lower() for column in cursor.description]
