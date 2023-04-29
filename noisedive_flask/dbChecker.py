@@ -23,11 +23,12 @@ def check_if_db_exists():
 
 def check_if_table_exists(table_name):
     exists = query(f"SELECT name FROM sqlite_master WHERE type='table' AND name=?", (table_name,))
-    return exists is not None
+    return False if exists==[] else True
 
 
 def usersTable():
     if not check_if_table_exists('users'):
+        message("1", f'users table NOT FOUND')
         query("""
         CREATE TABLE IF NOT EXISTS users(
 	    "userID"	INTEGER NOT NULL UNIQUE,
