@@ -25,9 +25,10 @@ from flask import (
     Flask,
     Blueprint,
 )
-# basedir = os.path.abspath(os.path.dirname(__file__))
+basedir = os.path.abspath(os.path.dirname(__file__))
 DB_NAME = 'sqlite.db'
-DB_DIR = 'noisedive_flask/db'
+DB_DIR = os.path.join(basedir, 'db')
+# DB_DIR = 'noisedive_flask/db'
 DB_PATH = os.path.join(DB_DIR, DB_NAME)
 
 # def get_sqlite_cursor_and_connection(db_path=DB_PATH):
