@@ -4,14 +4,26 @@
 />
 <div class="navbar">
   <a href="/"><h1 class="btn btnLink btnHome">NoiseDive</h1></a>
-  <div class="searchBar">
+  <div class="search">
+    <!-- <input
+      type="text"
+      id="searchInput"
+      class="input"
+      autocomplete="off"
+      placeholder="search"
+    /><button onclick="search()" class="btn">🔍</button> -->
+
+  <form id="searchForm" class="searchBar searchBarPage" onsubmit="return searchSubmit()">
     <input
       type="text"
       id="searchInput"
       class="input"
       autocomplete="off"
       placeholder="search"
-    /><button onclick="search()" class="btn">🔍</button>
+    />
+    <button type="submit" class="btn">🔍</button>
+  </form>
+
   </div>
   <div class="btns">
     {% if session["userName"] %}
@@ -59,7 +71,8 @@
       <a href="/login/redirect=&">Login</a>
       <a href="/signup">Sign Up</a>
       {% endif %}
-      <a href="/searchbar">Search</a>
+      <!-- TODO - alter CSS so that searchbar shows up on mobile (currently disappears) -->
+      <!-- <a href="/search">Search</a> -->
     </div>
   </div>
   <script src="/static/js/navbar.js"></script>

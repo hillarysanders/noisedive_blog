@@ -30,7 +30,7 @@ from noisedive_flask.routes.login import loginBlueprint
 from noisedive_flask.routes.signup import signUpBlueprint
 from noisedive_flask.routes.logout import logoutBlueprint
 from noisedive_flask.routes.search import searchBlueprint
-from noisedive_flask.routes.searchBar import searchBarBlueprint
+# from noisedive_flask.routes.searchBar import searchBarBlueprint
 from noisedive_flask.routes.editPost import editPostBlueprint
 from noisedive_flask.routes.dashboard import dashboardBlueprint
 from noisedive_flask.routes.adminPanel import adminPanelBlueprint
@@ -88,7 +88,7 @@ def create_app():
     app.register_blueprint(searchBlueprint)
     app.register_blueprint(editPostBlueprint)
     app.register_blueprint(dashboardBlueprint)
-    app.register_blueprint(searchBarBlueprint)
+    # app.register_blueprint(searchBarBlueprint)
     app.register_blueprint(adminPanelBlueprint)
     app.register_blueprint(deleteUserBlueprint)
     app.register_blueprint(deletePostBlueprint)
