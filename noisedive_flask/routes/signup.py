@@ -55,7 +55,15 @@ def signup():
                        "admin", 0, "{currentDate()}", "{currentTime()}")
                 """, (userName, email, password,), commit=True
             )
+            
+            # Now log them in automatically:
+            session["userName"] = userName
+            session.permanent = True  # Make the session a permanent session.
+            message("2", f'USER: "{userName}" LOGGED IN')
+            flash(f"Welcome {userName}", "success")
+
             # now log them in automagically:
-            return render_template("login.html", form=loginForm(request.form), hideLogin=True)
+            # Redirect to the desired page after successful login (e.g., home page)
+            return redirect("/")
 
     return render_template("signup.html", form=form, hideSignUp=True)
