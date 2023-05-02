@@ -44,7 +44,7 @@ def changePassword():
                     message("2", f'USER: "{session["userName"]}" CHANGED THEIR PASSWORD')
                     session.clear()
                     flash("Your password has been changed.", "success")
-                    return redirect("/login")
+                    return redirect("/")
             else:
                 flash("Old password is incorrect", "error")
                 message("1", "OLD PASSWORD INCORRECT")
@@ -53,4 +53,4 @@ def changePassword():
     else:
         message("1", "USER NOT LOGGED IN")
         flash("You need to log in to change your password", "error")
-        return redirect("/login")
+        return redirect("/")
