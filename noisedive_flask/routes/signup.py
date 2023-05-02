@@ -31,7 +31,7 @@ def signup():
         email = request.form["email"]
         password = request.form["password"]
         passwordConfirm = request.form["passwordConfirm"]
-        if query("select userName from users where userName=?", (userName,)):
+        if query("select userName from users where lower(userName)=?", (userName.lower(),)):
             flash("This username is unavailable.", "error")
             success = False
 
@@ -44,7 +44,7 @@ def signup():
             success = False
 
         if not userName.isascii():
-            flash("username does not fit ascii charecters", "error")
+            flash("username does not fit ascii characters", "error")
             success = False
 
         if success:
@@ -52,7 +52,7 @@ def signup():
             query(f"""
                 insert into users(userName,email,password,profilePicture,role,points,creationDate,creationTime) 
                 values(?, ?, ?, "https://api.dicebear.com/5.x/identicon/svg?seed={secrets.token_urlsafe(32)}",
-                       "user", 0, "{currentDate()}", "{currentTime()}")
+                       "admin", 0, "{currentDate()}", "{currentTime()}")
                 """, (userName, email, password,), commit=True
             )
             # now log them in automagically:
