@@ -21,8 +21,8 @@ signUpBlueprint = Blueprint("signup", __name__)
 
 @signUpBlueprint.route("/signup", methods=["GET", "POST"])
 def signup():
-    if "userName" in session:
-        return redirect("/")
+    # if "userName" in session:
+    #     return redirect("/")
     
     form = signUpForm(request.form)
     success = True
