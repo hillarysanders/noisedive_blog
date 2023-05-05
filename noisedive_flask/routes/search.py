@@ -1,7 +1,9 @@
+import markdown
 from noisedive_flask.helpers import (
     render_template,
     Blueprint,
-    query
+    query,
+    convert_row_and_apply_markdown
 )
 
 searchBlueprint = Blueprint("search", __name__)
@@ -41,6 +43,7 @@ def search(query_str):
     # Remove duplicates from the posts list based on the 'id' column
     seen_ids = set()
     posts = [post for post in posts if not (post.id in seen_ids or seen_ids.add(post.id))]
+    posts = convert_row_and_apply_markdown(posts)
         
     return render_template(
         "search.html",

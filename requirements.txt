@@ -1,6 +1,9 @@
 ipython==8.13.0  # just for ease, could remove in prod
 Flask==2.2.2
 passlib==1.7.4
+markdown-it-py==2.2.0
+mdit-py-plugins==0.3.5
+Markdown==3.4.3
 WTForms==3.0.1
 flaskwebgui==1.0.3
 waitress==2.1.2

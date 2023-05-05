@@ -1,3 +1,4 @@
+import markdown
 from noisedive_flask.helpers import (
     session,
     sqlite3,
@@ -11,7 +12,8 @@ from noisedive_flask.helpers import (
     render_template,
     Blueprint,
     commentForm,
-    query
+    query,
+    apply_markdown_with_latex
 )
 
 postBlueprint = Blueprint("post", __name__)
@@ -39,13 +41,14 @@ def post(postID):
             return redirect(f"/post/{postID}")
         
         comments = query('select * from comments where post = ?', (postID,))
+        print(post[3])
         return render_template(
             "post.html",
             # horrible. Should be named dictionary!
             id=post[0],
             title=post[1],
             tags=post[2],
-            content=post[3],
+            content=apply_markdown_with_latex(post[3]),
             author=post[4],
             views=post[7],
             date=post[5],

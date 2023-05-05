@@ -1,4 +1,8 @@
 import os
+import markdown
+from markdown_it import MarkdownIt
+from mdit_py_plugins.dollarmath import dollarmath_plugin
+# from markdown_it.extensions.math import math_plugin
 import secrets
 import sqlite3
 from os import mkdir
@@ -89,3 +93,37 @@ def addPoints(points, user):
 def getProfilePicture(userName):
     return query(f'select profilePicture from users where lower(userName) = ?', (userName.lower(),), fetchone=True)[0]
     
+class AttrDict:
+    def __init__(self, data):
+        self.__dict__.update(data)
+
+    def __getattr__(self, name):
+        return self.__dict__.get(name)
+
+    def __setattr__(self, name, value):
+        self.__dict__[name] = value
+
+    def __getitem__(self, name):
+        return self.__dict__.get(name)
+
+    def __setitem__(self, name, value):
+        self.__dict__[name] = value
+
+def apply_markdown_with_latex(content):
+    import pdb; pdb.set_trace()
+    # TODO: might need texmath_plugin (gpt  says arithmatex_plugin) to do single dollar sign stuff.
+    return MarkdownIt().use(dollarmath_plugin).render(content)
+
+# Convert Row objects into AttrDict objects with Markdown applied
+def convert_row_and_apply_markdown(posts):
+    converted_posts = []
+    # Create a MarkdownIt instance and use the math plugin
+    md = MarkdownIt().use(dollarmath_plugin)
+    for post in posts:
+        # Convert the Row object into a mutable dictionary
+        post_dict = AttrDict(post._asdict())
+        # Render the Markdown and LaTeX content
+        post_dict.content = md.render(post_dict.content)
+        # Append the modified AttrDict object to the list of converted posts
+        converted_posts.append(post_dict)
+    return converted_posts
