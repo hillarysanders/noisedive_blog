@@ -109,10 +109,11 @@ class AttrDict:
     def __setitem__(self, name, value):
         self.__dict__[name] = value
 
-def apply_markdown_with_latex(content):
-    import pdb; pdb.set_trace()
+def apply_markdown_with_latex(post):
+    # import pdb; pdb.set_trace()
     # TODO: might need texmath_plugin (gpt  says arithmatex_plugin) to do single dollar sign stuff.
-    return MarkdownIt().use(dollarmath_plugin).render(content)
+    print(MarkdownIt().use(dollarmath_plugin).render(AttrDict(post._asdict()).content))
+    return MarkdownIt().use(dollarmath_plugin).render(AttrDict(post._asdict()).content)
 
 # Convert Row objects into AttrDict objects with Markdown applied
 def convert_row_and_apply_markdown(posts):

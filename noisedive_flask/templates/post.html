@@ -1,39 +1,51 @@
 {% extends 'layout.html'%} {%block head%}
-<title>{{title}}</title>
+<title>{{post.title}}</title>
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/post.css') }}"
 />
+
+
 {% endblock head %} {%block body%}
 <div class="post centeredHorizontally">
-  <h1 class="title">{{title}}</h1>
+  <h1 class="title">{{post.title}}</h1>
   <p class="content">
-    {{ content | safe }} <br />
-    Tags: {{tags.replace(",",", ")}}
+    <!-- {{ content | safe }} <br /> -->
+    {{(post.content)|safe}} <br/>
+    Tags: {{post.tags.replace(",",", ")}}
   </p>
+
+<!-- <div class="post centeredHorizontally">
+  <a class="title textPrimary" href="/post/{{post.id}}">{{post.title}}</a>
+  <div class="content" tag="content">{{(post.content)|safe}}</div>
+  <a href="/post/{{post.id}}" class="btn btnLink">read more</a>
+</div> -->
+
+
+
   <div class="bottomBar">
     <div>
-      <h5>👁️ {{views}}</h5>
-      <a href="/user/{{author|lower}}">
+      <h5>👁️ {{post.views}}</h5>
+      <a href="/user/{{post.author|lower}}">
         <h5 class="author">
           <img
             class="profilePicture"
-            src="{{ getProfilePicture(author) }}"
-          />{{author}}
+            src="{{ getProfilePicture(post.author) }}"
+          />{{post.author}}
         </h5></a
       >
     </div>
     <div class="dateTime">
-      <h5>{{time}}</h5>
-      <h5 class="date">{{date}}</h5>
+      <h5>{{post.time}}</h5>
+      <h5 class="date">{{post.date}}</h5>
     </div>
   </div>
-  {% if author == session["userName"] %}
+  {% if post.author == session["userName"] %}
   <div class="bottomBar">
-    <a href="/deletepost/{{id}}/redirect=&" class="btn btnLink textPrimary"
+    <a href="/deletepost/{{post.id}}/redirect=&" class="btn btnLink textPrimary"
       >delete</a
     >
-    <a href="/editpost/{{id}}" class="btn btnLink textPrimary">edit</a>
+    <a href="/editpost/{{post.id}}" class="btn btnLink textPrimary">edit</a>
   </div>
   {% endif %} {% for comment in comments %}
   <div class="comments">

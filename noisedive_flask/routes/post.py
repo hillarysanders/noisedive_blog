@@ -13,7 +13,8 @@ from noisedive_flask.helpers import (
     Blueprint,
     commentForm,
     query,
-    apply_markdown_with_latex
+    apply_markdown_with_latex,
+    convert_row_and_apply_markdown
 )
 
 postBlueprint = Blueprint("post", __name__)
@@ -41,18 +42,13 @@ def post(postID):
             return redirect(f"/post/{postID}")
         
         comments = query('select * from comments where post = ?', (postID,))
-        print(post[3])
+        if postID==14:
+            print(convert_row_and_apply_markdown([post])[0].content)
+
         return render_template(
             "post.html",
-            # horrible. Should be named dictionary!
-            id=post[0],
-            title=post[1],
-            tags=post[2],
-            content=apply_markdown_with_latex(post[3]),
-            author=post[4],
-            views=post[7],
-            date=post[5],
-            time=post[6],
+            post=post,
+            # post=convert_row_and_apply_markdown([post])[0],
             form=form,
             comments=comments,
         )

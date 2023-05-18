@@ -43,8 +43,14 @@ def search(query_str):
     # Remove duplicates from the posts list based on the 'id' column
     seen_ids = set()
     posts = [post for post in posts if not (post.id in seen_ids or seen_ids.add(post.id))]
-    posts = convert_row_and_apply_markdown(posts)
-        
+    # posts = convert_row_and_apply_markdown(posts)
+    
+    for post in posts:
+        print(post.id)
+        if post.id==14:
+            print(post.content)
+    # import pdb; pdb.set_trace()
+
     return render_template(
         "search.html",
         posts=posts,

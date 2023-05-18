@@ -1,6 +1,13 @@
-{% extends 'layout.html'%} {%block head%}
+{% extends 'layout.html'%}
+{%block head%}
 <title>Edit Post</title>
-{% endblock head %} {%block body%}
+<!-- EasyMDE CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+<!-- EasyMDE script -->
+<script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+{% endblock head %}
+{% block body %}
+
 <div class="container">
   <form method="post" class="form formPost centeredHorizontally">
     {{form.postTitle(class_="input centeredHorizontally" , autocomplete="off")}}
@@ -10,4 +17,9 @@
     <button type="submit" class="btn btnPrimary">save</button>
   </form>
 </div>
+
+<script>
+  // Initialize EasyMDE on the textarea element
+  var easyMDE = new EasyMDE({element: document.getElementById('markdown-editor')});
+</script>
 {% endblock body %}
