@@ -12,11 +12,20 @@
       rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📜</text></svg>"
     />
-    {% block head %} {% endblock head %}
-    <!-- latex rendering -->
+
+    <script src="{{ url_for('static', filename='js/editor.js') }}"></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/editor.css') }}"
+    />
+    <!-- ****************************************** latex rendering ****************************************** -->
+    <!-- EasyMDE CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+    <!-- EasyMDE script -->
+    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+
+    <!-- IDK why but it works if I put this source before AND after the configuration script... wat. -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <!-- same, mathjax rendering: -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js"></script> -->
     <script>
       MathJax = {
         tex: {
@@ -29,19 +38,18 @@
         }
       };
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- ****************************************** latex rendering ****************************************** -->
+
+    <script>
+      // Initialize EasyMDE on the textarea element
+      var easyMDE = new EasyMDE({element: document.getElementById('markdown-editor')});
+    </script>
+
+    {% block head %} {% endblock head %}
   </head>
   <body>
     {% include 'changeTheme.html'%} {% include 'navbar.html'%} {% include
     'flash.html'%} {% block body %} {% endblock body %}
-    <!-- <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script> -->
-    <!-- EasyMDE CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
-    <!-- EasyMDE script -->
-    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
-    <script src="{{ url_for('static', filename='js/editor.js') }}"></script>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/editor.css') }}"
-    />
   </body>
 </html>

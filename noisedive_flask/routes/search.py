@@ -53,6 +53,7 @@ def search(query_str):
 
     return render_template(
         "search.html",
+        # posts=convert_row_and_apply_markdown(posts),
         posts=posts,
         users=queryUsers,
         query=query_str,

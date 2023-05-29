@@ -42,8 +42,9 @@ def post(postID):
             return redirect(f"/post/{postID}")
         
         comments = query('select * from comments where post = ?', (postID,))
-        if postID==14:
-            print(convert_row_and_apply_markdown([post])[0].content)
+        print(post.content)
+        print('\n\n\n')
+        print(convert_row_and_apply_markdown([post])[0].content)
 
         return render_template(
             "post.html",

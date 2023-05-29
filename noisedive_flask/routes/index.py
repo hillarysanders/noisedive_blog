@@ -2,7 +2,8 @@ from noisedive_flask.helpers import (
     sqlite3,
     render_template,
     Blueprint,
-    query
+    query,
+    convert_row_and_apply_markdown
 )
 
 indexBlueprint = Blueprint("index", __name__)
@@ -10,7 +11,9 @@ indexBlueprint = Blueprint("index", __name__)
 
 @indexBlueprint.route("/")
 def index():
+    print([post.id for post in query("select * from posts")])
     return render_template(
         "index.html",
-        posts=query("select * from posts"),
+        posts=query("select * from posts")[::-1],
+        # posts=convert_row_and_apply_markdown(query("select * from posts")),
     )

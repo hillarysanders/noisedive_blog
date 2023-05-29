@@ -5,22 +5,13 @@
   href="{{ url_for('static', filename='css/post.css') }}"
 />
 
-
 {% endblock head %} {%block body%}
 <div class="post centeredHorizontally">
   <h1 class="title">{{post.title}}</h1>
   <p class="content">
-    <!-- {{ content | safe }} <br /> -->
-    {{(post.content)|safe}} <br/>
+    {{post.content|safe}} <br/>
     Tags: {{post.tags.replace(",",", ")}}
   </p>
-
-<!-- <div class="post centeredHorizontally">
-  <a class="title textPrimary" href="/post/{{post.id}}">{{post.title}}</a>
-  <div class="content" tag="content">{{(post.content)|safe}}</div>
-  <a href="/post/{{post.id}}" class="btn btnLink">read more</a>
-</div> -->
-
 
 
   <div class="bottomBar">

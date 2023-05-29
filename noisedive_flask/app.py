@@ -1,5 +1,6 @@
 import sys
 import os
+import json
 # Get the directory above the directory containing the current script (__file__)
 current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -46,6 +47,8 @@ from noisedive_flask.routes.adminPanelPosts import adminPanelPostsBlueprint
 from noisedive_flask.routes.accountSettings import accountSettingsBlueprint
 from noisedive_flask.routes.adminPanelComments import adminPanelCommentsBlueprint
 from noisedive_flask.dbChecker import check_if_db_dir_exists, check_if_db_exists, usersTable, postsTable, commentsTable
+
+
 
 
 def create_app():
@@ -106,4 +109,4 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(debug=False, host=socket.gethostbyname(socket.gethostname()))
+    app.run(debug=True, host=socket.gethostbyname(socket.gethostname()))

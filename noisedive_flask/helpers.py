@@ -108,6 +108,12 @@ class AttrDict:
 
     def __setitem__(self, name, value):
         self.__dict__[name] = value
+    
+    def __repr__(self):
+        return str(self.__dict__)
+    
+    def __str__(self):
+        return str(self.__dict__)
 
 def apply_markdown_with_latex(post):
     # import pdb; pdb.set_trace()

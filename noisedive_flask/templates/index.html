@@ -4,10 +4,20 @@
   rel="stylesheet"
   href="{{ url_for('static', filename='css/index.css') }}"
 />
-{% endblock head %} {%block body%} {% for post in posts %}
-<div class="post centeredHorizontally">
-  <a class="title textPrimary" href="post/{{post.id}}">{{post.title}}</a>
-  <div class="content" tag="content">{{post.content|safe}}</div>
-  <a href="post/{{post.id}}" class="btn btnLink">read more</a>
-</div>
-{% endfor %} {% endblock body %}
+{% endblock head %} 
+{%block body%}
+  <!-- {% for post in posts %}
+  <p>{{post.title}}</p>
+  {% endfor %} -->
+
+ {% for post in posts %}
+    <div class="post centeredHorizontally">
+      <a class="title textPrimary" href="post/{{post.id}}">{{post.title}}</a>
+      <div class="content" tag="content">{{post.content|safe}}</div>
+      <a href="post/{{post.id}}" class="btn btnLink">read more</a>
+    </div>
+  {% endfor %}
+  <!-- TODO why are only the first five showing? The objects are here, some CSS thing? Pagination? -->
+
+{% endblock body %}
+
