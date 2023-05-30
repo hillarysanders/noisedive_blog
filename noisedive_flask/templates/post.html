@@ -6,13 +6,25 @@
 />
 
 {% endblock head %} {%block body%}
+
+
 <div class="post centeredHorizontally">
   <h1 class="title">{{post.title}}</h1>
+
+  {% if post.author == session["userName"] %}
+  <div class="bottomBar">
+    <a href="/deletepost/{{post.id}}/redirect=&" class="btn btnLink textPrimary">Delete</a>
+    <a href="/editpost/{{post.id}}" class="btn btnLink textPrimary">Edit</a>
+  </div>
+  {% endif %}
+  <hr width="100%"/>
+
   <p class="content">
     {{post.content|safe}} <br/>
-    Tags: {{post.tags.replace(",",", ")}}
   </p>
 
+  <hr width="100%"/>
+  <b>Tags: {{post.tags.replace(",",", ")}}</b>
 
   <div class="bottomBar">
     <div>
@@ -31,14 +43,8 @@
       <h5 class="date">{{post.date}}</h5>
     </div>
   </div>
-  {% if post.author == session["userName"] %}
-  <div class="bottomBar">
-    <a href="/deletepost/{{post.id}}/redirect=&" class="btn btnLink textPrimary"
-      >delete</a
-    >
-    <a href="/editpost/{{post.id}}" class="btn btnLink textPrimary">edit</a>
-  </div>
-  {% endif %} {% for comment in comments %}
+
+  {% for comment in comments %}
   <div class="comments">
     <img class="profilePicture" src="{{ getProfilePicture(comment[3]) }}" />
     <section class="commentUserNameContainer">

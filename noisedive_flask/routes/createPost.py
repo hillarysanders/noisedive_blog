@@ -40,13 +40,21 @@ def createPost():
                     f'POST CONTENT NOT BE EMPTY USER: "{session["userName"]}"',
                 )
             else:
-                query(f"""
+                current_time = currentTime()
+                current_date = currentDate()
+                x = query(f"""
                     INSERT INTO posts(title, tags, content, author, views, date, time, lastEditDate, lastEditTime)
                     VALUES(?, ?, ?, ?, 0,
-                        "{currentDate()}", "{currentTime()}", "{currentDate()}", "{currentTime()}")
-                """, (postTitle, postTags, postContent, session["userName"],))
+                        "{current_date}", "{current_time}", "{current_date}", "{current_time}")
+                """, (postTitle, postTags, postContent, session["userName"],), commit=True)
+                # import pdb; pdb.set_trace()
+                post_id = query(f"""select id from posts where 
+                                        time='{current_time}' and 
+                                        date='{current_date}' and
+                                        author='{session['userName']}'""")[0].id
+                
                 message("2", f'POST: "{postTitle}" POSTED')
                 addPoints(20, session["userName"])
                 flash("You earned 20 points by posting ", "success")
-                return redirect("/")
+                return redirect(f"/post/{post_id}")
         return render_template("createPost.html", form=form)

@@ -10,7 +10,7 @@ setup(
     #this will be the package name you will see, e.g. the output of 'conda list' in anaconda prompt
     name = 'noisedive_flask', 
     #some version number you may wish to add - increment this after every update
-    version='1.1.31', 
+    version='1.1.32', 
     include_package_data=True,
     # package_data=? (MANIFEST.in)
     install_requires=requirements,
@@ -75,6 +75,7 @@ setup(
 # # you can test with:
 # cd noisedive
 # ../run-noisedive.sh
+# ## --> Due to github actions, all you need to do to update webset is restart this shell script on nearlyfreespeech.
 
 # changed proxy port to flask default 5000
 # changed server type to fancy daemon friendly one and plan to production site
