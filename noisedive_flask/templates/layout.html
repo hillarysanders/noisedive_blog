@@ -26,6 +26,7 @@
 
     <script>
       MathJax = {
+        loader: {load: ['[tex]/ams'],
         tex: {
           inlineMath: [
             ['$', '$'],
@@ -35,7 +36,8 @@
             ['$$', '$$'],
             ['\[', '\]']
           ],
-          processEscapes: true
+          processEscapes: true,
+          packages: {'[+]': ['ams']}
         },
         options: {
           ignoreHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
