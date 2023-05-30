@@ -2,6 +2,7 @@ import os
 import markdown
 from markdown_it import MarkdownIt
 from mdit_py_plugins.dollarmath import dollarmath_plugin
+from mdit_py_plugins.texmath import texmath_plugin
 # from markdown_it.extensions.math import math_plugin
 import secrets
 import sqlite3
@@ -115,17 +116,19 @@ class AttrDict:
     def __str__(self):
         return str(self.__dict__)
 
-def apply_markdown_with_latex(post):
-    # import pdb; pdb.set_trace()
-    # TODO: might need texmath_plugin (gpt  says arithmatex_plugin) to do single dollar sign stuff.
-    print(MarkdownIt().use(dollarmath_plugin).render(AttrDict(post._asdict()).content))
-    return MarkdownIt().use(dollarmath_plugin).render(AttrDict(post._asdict()).content)
+# def apply_markdown_with_latex(post):
+#     # import pdb; pdb.set_trace()
+#     # TODO: might need texmath_plugin (gpt  says arithmatex_plugin) to do single dollar sign stuff.
+#     print(MarkdownIt().use(dollarmath_plugin).render(AttrDict(post._asdict()).content))
+#     return MarkdownIt().use(dollarmath_plugin).render(AttrDict(post._asdict()).content)
 
 # Convert Row objects into AttrDict objects with Markdown applied
 def convert_row_and_apply_markdown(posts):
     converted_posts = []
     # Create a MarkdownIt instance and use the math plugin
-    md = MarkdownIt().use(dollarmath_plugin)
+    md = MarkdownIt()
+    # md = MarkdownIt().use(dollarmath_plugin)
+    # md = MarkdownIt().use(texmath_plugin)
     for post in posts:
         # Convert the Row object into a mutable dictionary
         post_dict = AttrDict(post._asdict())

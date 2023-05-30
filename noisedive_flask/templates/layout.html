@@ -24,14 +24,22 @@
     <!-- EasyMDE script -->
     <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
 
-    <!-- IDK why but it works if I put this source before AND after the configuration script... wat. -->
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
       MathJax = {
         tex: {
-          inlineMath: [['$', '$'], ['\(', '\)']],
-          displayMath: [['$$', '$$'], ['\[', '\]']],
+          inlineMath: [
+            ['$', '$'],
+            ['\(', '\)']
+                      ],
+          displayMath: [
+            ['$$', '$$'],
+            ['\[', '\]']
+          ],
           processEscapes: true
+        },
+        options: {
+          ignoreHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          processHtmlClass: 'tex2jax_ignore'
         },
         svg: {
           fontCache: 'global'

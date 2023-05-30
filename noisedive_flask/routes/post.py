@@ -13,7 +13,6 @@ from noisedive_flask.helpers import (
     Blueprint,
     commentForm,
     query,
-    apply_markdown_with_latex,
     convert_row_and_apply_markdown
 )
 
@@ -48,8 +47,8 @@ def post(postID):
 
         return render_template(
             "post.html",
-            post=post,
-            # post=convert_row_and_apply_markdown([post])[0],
+            # post=post,
+            post=convert_row_and_apply_markdown([post])[0],
             form=form,
             comments=comments,
         )
