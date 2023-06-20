@@ -15,7 +15,7 @@ jobs:
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         password: ${{ secrets.SSH_PASSWORD }}
         # Recursively delete everything except venv and folder itself, for now (rsync better probs, but meh).
         # TODO: this deletes the DBs each time, remove them from git, probably, and add init steps to setup steps.
@@ -29,7 +29,7 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
-        key: ${{ secrets.SSH_KEY }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         source: ./
         target: /home/protected/noisedive
 
@@ -40,13 +40,12 @@ jobs:
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         password: ${{ secrets.SSH_PASSWORD }}
         # Build and install the most recent package version:
         script: |
           cd /home/protected/noisedive/ && source venv/bin/activate
           python setup.py bdist_wheel
-          pip uninstall noisedive_flask # TEMP
           pip uninstall noisedive_blog
           pip install $(ls dist/noisedive_blog-*.whl | sort -V | tail -n 1)
 
