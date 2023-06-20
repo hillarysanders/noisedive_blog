@@ -6,7 +6,7 @@ Simple blog app built with Flask, originally based on [flaskBlog📜](https://do
 2. Test locally
 3. Bump version number
 3. Push to main, this will automatically publish and install most recent version package
-4. Restart server daemon, then production site will pick up new installation
+4. Restart server daemon (via website, unf), then production site will pick up new installation
 
 # Local
 1. `cd $dir`
