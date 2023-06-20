@@ -8,18 +8,28 @@ jobs:
 
     steps:
 
-    - name: Delete files in ssh server
-      uses: appleboy/ssh-action@master
-      env:
-        GITHUB_WORKSPACE: ${{ github.workspace }}  # Set the environment variable for github.workspace
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        password: ${{ secrets.SSH_PASSWORD }}
-        # Recursively delete everything except venv and folder itself, for now (rsync better probs, but meh).
-        # TODO: this deletes the DBs each time, remove them from git, probably, and add init steps to setup steps.
-        script: find /home/protected/noisedive -maxdepth 1 -mindepth 1 -not -name /home/protected/noisedive/venv -not -name /home/protected/noisedive/wheel_venv -not -name /home/protected/noisedive/noisedive_blog/db/sqlite.db -not -name /home/protected/noisedive/noisedive_flask/db/sqlite.db -delete
+    # - name: Delete files in ssh server
+    #   uses: appleboy/ssh-action@master
+    #   env:
+    #     GITHUB_WORKSPACE: ${{ github.workspace }}  # Set the environment variable for github.workspace
+    #   with:
+    #     host: ${{ secrets.SSH_HOST }}
+    #     username: ${{ secrets.SSH_USERNAME }}
+    #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+    #     password: ${{ secrets.SSH_PASSWORD }}
+    #     # TODO WARNING: this only deletes things with a depth of one, and doesn't seem to delete folders, so 
+    #     # if a file is deleted in git it will remain around still. That's bad. Fix at some point. Not sure 
+    #     # if you can just run a github actions git pull, or if I should just run a more complete delete.
+    #     # Recursively delete everything except venv and folder itself, for now (rsync better probs, but meh).
+    #     # TODO: this deletes the DBs each time, remove them from git, probably, and add init steps to setup steps.
+    #     script: find /home/protected/noisedive -maxdepth 1 -mindepth 1 \
+    #        -not -name /home/protected/noisedive/venv \
+    #        -not -name /home/protected/noisedive/wheel_venv \
+    #        -not -name /home/protected/noisedive/dist \
+    #        -not -name /home/protected/noisedive/noisedive_flask -delete
+    #        # find /home/protected/noisedive/noisedive_flask -maxdepth 1 -mindepth 1 \
+    #        # -not -name /home/protected/noisedive/noisedive_flask/db/ -delete
+
 
     - uses: actions/checkout@v2
 
