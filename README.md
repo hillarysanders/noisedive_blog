@@ -1,5 +1,5 @@
 # Noisedive
-Simple blog app built with Flask, originally based on [flaskBlog📜](https://dogukanurker.com/flaskblog).
+Simple blog app built with Flask, originally based on [flaskBlog📜](https://dogukanurker.com/flaskblog) but, er, very different by now.
 
 # Updates, using github actions
 1. Change code
