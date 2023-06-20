@@ -46,7 +46,7 @@ jobs:
         script: |
           cd /home/protected/noisedive/ && source venv/bin/activate
           python setup.py bdist_wheel
-          pip uninstall   # TEMP
+          pip uninstall noisedive_flask # TEMP
           pip uninstall noisedive_blog
           pip install $(ls dist/noisedive_blog-*.whl | sort -V | tail -n 1)
 
