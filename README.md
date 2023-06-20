@@ -11,4 +11,4 @@ Simple blog app built with Flask, originally based on [flaskBlog📜](https://do
 # Local
 1. `cd $dir`
 2. `source .venv/bin/activate`
-3. `FLASK_APP=noisedive_flask flask` run or `FLASK_DEBUG=1 ENV=development  FLASK_APP=noisedive_flask flask run --debugger`
+3. `FLASK_APP=noisedive_blog flask` run or `FLASK_DEBUG=1 ENV=development  FLASK_APP=noisedive_blog flask run --debugger`

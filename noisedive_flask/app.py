@@ -13,7 +13,7 @@ sys.path.append('/home/protected/noisedive')
 # sys.path.append('/home/public/')
 from datetime import timedelta
 import socket
-from noisedive_flask.helpers import (
+from noisedive_blog.helpers import (
     secrets,
     message,
     render_template,
@@ -24,29 +24,29 @@ from noisedive_flask.helpers import (
 message(1, 'HELLO 2!')
 message(1, sys.path)
 
-from noisedive_flask.routes.post import postBlueprint
-from noisedive_flask.routes.user import userBlueprint
-from noisedive_flask.routes.index import indexBlueprint
-from noisedive_flask.routes.login import loginBlueprint
-from noisedive_flask.routes.signup import signUpBlueprint
-from noisedive_flask.routes.logout import logoutBlueprint
-from noisedive_flask.routes.search import searchBlueprint
-# from noisedive_flask.routes.searchBar import searchBarBlueprint
-from noisedive_flask.routes.editPost import editPostBlueprint
-from noisedive_flask.routes.dashboard import dashboardBlueprint
-from noisedive_flask.routes.adminPanel import adminPanelBlueprint
-from noisedive_flask.routes.deleteUser import deleteUserBlueprint
-from noisedive_flask.routes.deletePost import deletePostBlueprint
-from noisedive_flask.routes.createPost import createPostBlueprint
-from noisedive_flask.routes.setUserRole import setUserRoleBlueprint
-from noisedive_flask.routes.deleteComment import deleteCommentBlueprint
-from noisedive_flask.routes.changeUserName import changeUserNameBlueprint
-from noisedive_flask.routes.changePassword import changePasswordBlueprint
-from noisedive_flask.routes.adminPanelUsers import adminPanelUsersBlueprint
-from noisedive_flask.routes.adminPanelPosts import adminPanelPostsBlueprint
-from noisedive_flask.routes.accountSettings import accountSettingsBlueprint
-from noisedive_flask.routes.adminPanelComments import adminPanelCommentsBlueprint
-from noisedive_flask.dbChecker import check_if_db_dir_exists, check_if_db_exists, usersTable, postsTable, commentsTable
+from noisedive_blog.routes.post import postBlueprint
+from noisedive_blog.routes.user import userBlueprint
+from noisedive_blog.routes.index import indexBlueprint
+from noisedive_blog.routes.login import loginBlueprint
+from noisedive_blog.routes.signup import signUpBlueprint
+from noisedive_blog.routes.logout import logoutBlueprint
+from noisedive_blog.routes.search import searchBlueprint
+# from noisedive_blog.routes.searchBar import searchBarBlueprint
+from noisedive_blog.routes.editPost import editPostBlueprint
+from noisedive_blog.routes.dashboard import dashboardBlueprint
+from noisedive_blog.routes.adminPanel import adminPanelBlueprint
+from noisedive_blog.routes.deleteUser import deleteUserBlueprint
+from noisedive_blog.routes.deletePost import deletePostBlueprint
+from noisedive_blog.routes.createPost import createPostBlueprint
+from noisedive_blog.routes.setUserRole import setUserRoleBlueprint
+from noisedive_blog.routes.deleteComment import deleteCommentBlueprint
+from noisedive_blog.routes.changeUserName import changeUserNameBlueprint
+from noisedive_blog.routes.changePassword import changePasswordBlueprint
+from noisedive_blog.routes.adminPanelUsers import adminPanelUsersBlueprint
+from noisedive_blog.routes.adminPanelPosts import adminPanelPostsBlueprint
+from noisedive_blog.routes.accountSettings import accountSettingsBlueprint
+from noisedive_blog.routes.adminPanelComments import adminPanelCommentsBlueprint
+from noisedive_blog.dbChecker import check_if_db_dir_exists, check_if_db_exists, usersTable, postsTable, commentsTable
 
 
 

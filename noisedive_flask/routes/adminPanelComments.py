@@ -1,4 +1,4 @@
-from noisedive_flask.helpers import render_template, Blueprint, session, redirect, query
+from noisedive_blog.helpers import render_template, Blueprint, session, redirect, query
 
 adminPanelCommentsBlueprint = Blueprint("adminPanelComments", __name__)
 

@@ -8,7 +8,7 @@ with open('requirements.txt', 'r') as f:
 
 setup(
     #this will be the package name you will see, e.g. the output of 'conda list' in anaconda prompt
-    name = 'noisedive_flask', 
+    name = 'noisedive_blog', 
     #some version number you may wish to add - increment this after every update
     version='1.1.32', 
     include_package_data=True,
@@ -36,14 +36,14 @@ setup(
 # TODO: 
 
 #### LOCALLY, RUN:
-# ~/noisedive_flask % FLASK_APP=noisedive_flask flask run
+# ~/noisedive_blog % FLASK_APP=noisedive_blog flask run
 
 # In production:
 # ### EACH TIME:
 # source venv/bin/activate
 # python setup.py bdist_wheel
-# pip install dist/noisedive_flask-1.1.8-py3-none-any.whl
-# venv/bin/waitress-serve --call 'noisedive_flask:create_app'
+# pip install dist/noisedive_blog-1.1.8-py3-none-any.whl
+# venv/bin/waitress-serve --call 'noisedive_blog:create_app'
 
 #### NOTES: works great locally. Seems to run remotely, but I can't find it online. Might need to use nginx or something, or it's something else.
 
@@ -59,11 +59,11 @@ setup(
 
 # ### NOTE: updates seem to not go through unless version is increased??
 # ### potentially on new machine or different directory, using the version (here 1.1 listed in setup.py)
-# pip install dist/noisedive_flask-1.1.9-py3-none-any.whl --force-reinstall
+# pip install dist/noisedive_blog-1.1.9-py3-none-any.whl --force-reinstall
 
 # ## WSGI server:
 # pip install waitress
-# venv/bin/waitress-serve --call 'noisedive_flask:create_app'
+# venv/bin/waitress-serve --call 'noisedive_blog:create_app'
 
 
 ######
@@ -80,10 +80,10 @@ setup(
 # changed proxy port to flask default 5000
 # changed server type to fancy daemon friendly one and plan to production site
 # made sure protected virtualenv includes all the packages and the new wheel (TODO create automatically)
-# wrote daemon to run /home/protected/noisedive/venv/bin/waitress-serve --call 'noisedive_flask:create_app'
+# wrote daemon to run /home/protected/noisedive/venv/bin/waitress-serve --call 'noisedive_blog:create_app'
 # kicked it off in nearlyfreespeech
 # logs of daemon are in: /home/logs/daemon_noisedive.log
 # changed setup.py to have include_package_data=True so non-py files are included in package.
 # and then added a MANIFEST.in file to specify what to include.
 # also changed permissions on database files, they weren't working: chmod 664 db/*.db
-# exec venv/bin/waitress-serve --call 'noisedive_flask:create_app'
+# exec venv/bin/waitress-serve --call 'noisedive_blog:create_app'

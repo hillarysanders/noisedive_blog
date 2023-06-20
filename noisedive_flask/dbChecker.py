@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from noisedive_flask.helpers import query, mkdir, exists, message, DB_DIR, DB_PATH
+from noisedive_blog.helpers import query, mkdir, exists, message, DB_DIR, DB_PATH
 
 def check_if_db_dir_exists():
     if exists(DB_DIR):

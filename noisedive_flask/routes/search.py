@@ -1,5 +1,5 @@
 import markdown
-from noisedive_flask.helpers import (
+from noisedive_blog.helpers import (
     render_template,
     Blueprint,
     query,

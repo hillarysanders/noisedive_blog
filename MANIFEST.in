@@ -1,5 +1,5 @@
-recursive-include noisedive_flask/templates *
-recursive-include noisedive_flask/static *
-recursive-include noisedive_flask/images *
-recursive-include noisedive_flask/docs *
-recursive-include noisedive_flask/db *
+recursive-include noisedive_blog/templates *
+recursive-include noisedive_blog/static *
+recursive-include noisedive_blog/images *
+recursive-include noisedive_blog/docs *
+recursive-include noisedive_blog/db *

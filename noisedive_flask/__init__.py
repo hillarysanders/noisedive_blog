@@ -1,3 +1,3 @@
-__name__ = 'noisedive_flask'
+__name__ = 'noisedive_blog'
 
 from .app import create_app

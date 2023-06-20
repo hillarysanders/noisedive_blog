@@ -1,4 +1,4 @@
-from noisedive_flask.helpers import Blueprint, session, redirect, message, query
+from noisedive_blog.helpers import Blueprint, session, redirect, message, query
 
 setUserRoleBlueprint = Blueprint("setUserRole", __name__)
 

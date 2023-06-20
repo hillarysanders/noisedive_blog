@@ -18,7 +18,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         # Recursively delete everything except venv and folder itself, for now (rsync better probs, but meh).
         # TODO: this deletes the DBs each time, remove them from git, probably, and add init steps to setup steps.
-        script: find /home/protected/noisedive -maxdepth 1 -mindepth 1 -not -name /home/protected/noisedive/venv -not -name /home/protected/noisedive/wheel_venv -not -name /home/protected/noisedive/noisedive_flask/db/sqlite.db -delete
+        script: find /home/protected/noisedive -maxdepth 1 -mindepth 1 -not -name /home/protected/noisedive/venv -not -name /home/protected/noisedive/wheel_venv -not -name /home/protected/noisedive/noisedive_blog/db/sqlite.db -delete
 
     - uses: actions/checkout@v2
 
@@ -43,7 +43,7 @@ jobs:
         script: |
           cd /home/protected/noisedive/ && source venv/bin/activate
           python setup.py bdist_wheel
-          pip uninstall noisedive_flask
-          pip install $(ls dist/noisedive_flask-*.whl | sort -V | tail -n 1)
+          pip uninstall noisedive_blog
+          pip install $(ls dist/noisedive_blog-*.whl | sort -V | tail -n 1)
 
 

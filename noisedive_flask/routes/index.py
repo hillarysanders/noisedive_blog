@@ -1,4 +1,4 @@
-from noisedive_flask.helpers import (
+from noisedive_blog.helpers import (
     sqlite3,
     render_template,
     Blueprint,

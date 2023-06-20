@@ -1,5 +1,5 @@
 import sqlite3
-from noisedive_flask.helpers import (
+from noisedive_blog.helpers import (
     message,
     render_template,
     Blueprint,
