@@ -41,10 +41,12 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
+        password: ${{ secrets.SSH_PASSWORD }}
         # Build and install the most recent package version:
         script: |
           cd /home/protected/noisedive/ && source venv/bin/activate
           python setup.py bdist_wheel
+          pip uninstall   # TEMP
           pip uninstall noisedive_blog
           pip install $(ls dist/noisedive_blog-*.whl | sort -V | tail -n 1)
 
