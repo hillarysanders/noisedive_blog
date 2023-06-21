@@ -19,11 +19,6 @@
       href="{{ url_for('static', filename='css/editor.css') }}"
     />
     <!-- ****************************************** latex rendering ****************************************** -->
-    <!-- EasyMDE CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
-    <!-- EasyMDE script -->
-    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
-
     <script>
       MathJax = {
         loader: {load: ['[tex]/ams'],
@@ -48,7 +43,14 @@
         }
       };
     </script>
+
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- EasyMDE CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+    <!-- EasyMDE script -->
+    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+
     <!-- ****************************************** latex rendering ****************************************** -->
 
     <script>
